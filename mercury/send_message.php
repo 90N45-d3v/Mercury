@@ -6,7 +6,7 @@ $msg_location = "message";
 if($_COOKIE[$cookie_name] != $token) {
     header("Location: /authentication.php");
 } else {
-    $message = $_POST[$msg_location] . "\n";
+    $message = "[" . date("H:i") . "] ". $_POST[$msg_location] . "\n";
     $file = fopen("raw_msgs.txt", "a");
     fwrite($file, $message);
 }
