@@ -1,4 +1,4 @@
-![Mercury-Banner](https://github.com/90N45-d3v/Mercury/blob/main/mercury/root/logo.png?raw=true)
+![Mercury-Banner](https://raw.githubusercontent.com/90N45-d3v/Mercury/main/mercury/root/logo.png?token=GHSAT0AAAAAAB5CPPWUG6IOS4PO5E66AKH6Y5XFKBA)
 <p align="center">
 
  <img src="https://img.shields.io/github/license/90N45-d3v/Mercury.svg">
