@@ -1,6 +1,19 @@
 <?php
-$token = "22ed7f2bdd3fa4c20cbac4356a7db51583afa4ff7a2ae35ad3f091f4d65b478581edda9e832194a24c04c3b55be8888d16eb4670c7ce8f1c8663e1fe6f999e0d";
 $passwd = $_POST['pwd'];
+$file = fopen("../token.txt", "r");
+$token = fread($file,filesize("../token.txt"));
+$n = 20;
+$date = date("Ymd");
+
+if (str_contains($token, $date)) {
+    fclose($file);
+} else {
+    fclose($file);
+    $file = fopen("../token.txt", "w+");
+    $token = bin2hex(random_bytes($n)) . $date;
+    fwrite($file, $token);
+    fclose($file);
+}
 
 if ($passwd == "mercury") {
     setcookie("mercury_auth", $token);

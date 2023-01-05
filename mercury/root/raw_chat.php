@@ -1,5 +1,15 @@
 <?php
-$token = "22ed7f2bdd3fa4c20cbac4356a7db51583afa4ff7a2ae35ad3f091f4d65b478581edda9e832194a24c04c3b55be8888d16eb4670c7ce8f1c8663e1fe6f999e0d";
+$file = fopen("../token.txt", "r");
+$token = fread($file,filesize("../token.txt"));
+$date = date("Ymd");
+
+if (str_contains($token, $date)) {
+    fclose($file);
+} else {
+	header("Location: /authentication.html");
+    fclose($file);
+}
+
 $cookie_name = "mercury_auth";
 
 if($_COOKIE[$cookie_name] != $token) {
@@ -22,9 +32,9 @@ if($_COOKIE[$cookie_name] != $token) {
 	<div style="margin: 10px;">
 			<code style="color: #FFBF80;">
 				<?php
-				$file = fopen("raw_msgs.txt", "r");
-				if(filesize("raw_msgs.txt") > 0) {
-					$content = fread($file,filesize("raw_msgs.txt"));
+				$file = fopen("../raw_msgs.txt", "r");
+				if(filesize("../raw_msgs.txt") > 0) {
+					$content = fread($file,filesize("../raw_msgs.txt"));
 					echo nl2br($content);
 					fclose($file);
 				}
