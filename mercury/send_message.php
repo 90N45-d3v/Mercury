@@ -4,7 +4,7 @@ $cookie_name = "mercury_auth";
 $msg_location = "message";
 
 if($_COOKIE[$cookie_name] != $token) {
-    header("Location: /authentication.php");
+    header("Location: /authentication.html");
 } else {
     $message = "[" . date("H:i") . "] ". $_POST[$msg_location] . "\n";
     $file = fopen("raw_msgs.txt", "a");

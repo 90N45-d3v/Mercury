@@ -3,7 +3,7 @@ $token = "22ed7f2bdd3fa4c20cbac4356a7db51583afa4ff7a2ae35ad3f091f4d65b478581edda
 $cookie_name = "mercury_auth";
 
 if($_COOKIE[$cookie_name] != $token) {
-    header("Location: /authentication.php");
+    header("Location: /authentication.html");
 }
 ?>
 
