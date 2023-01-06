@@ -25,7 +25,8 @@ if($_COOKIE[$cookie_name] != $token) {
 	<meta http-equiv="content-type" content="text/html" charset="utf-8">
 
 	<meta name="author" content="90N45">
-	<meta name="description" content="Mercury - Web Messanger">
+	<meta name="description" content="Mercury - Web-Based Communication System">
+	<title>Mercury - Communication System</title>
 
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
@@ -66,7 +67,7 @@ if($_COOKIE[$cookie_name] != $token) {
 	</div>
 	<br>
 	<div class="text-center">
-		<iframe src="raw_chat.php" class="rounded" height="65%" width="90%" title="ChatFrame" id="chat" style="animation-name: slide-right; animation-duration: 1.5s; position: relative;"></iframe>
+		<iframe src="raw_chat.php#bottom" class="rounded" height="65%" width="90%" title="ChatFrame" id="chat" style="animation-name: slide-right; animation-duration: 1.5s; position: relative;"></iframe>
 		<iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
 
 		<form method="post" action="send_message.php" target="dummyframe">

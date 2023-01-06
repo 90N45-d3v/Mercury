@@ -40,5 +40,6 @@ if($_COOKIE[$cookie_name] != $token) {
 				}
 				?>
 			</code>
+			<footer id="bottom"></footer>
 	</div>
 </html>
