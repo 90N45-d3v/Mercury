@@ -52,9 +52,11 @@ if($_COOKIE[$cookie_name] != $token) {
 			let date =  new Date().getFullYear();
 			document.getElementById("copyright").innerHTML = "<p style=\"animation-name: fade-in; animation-duration: 3s;\"> &copy; " + date + " 90N45<br>All rights reserved. </p>";
 		}
+
 		document.addEventListener("keyup", function(event) {
 			if (event.key === 'Enter' || event.code === 'Enter' || event.which === '13') {
 				document.getElementById("message").value = "";
+				document.getElementById("submit").click()
 			}
 		})
 	</script>
@@ -66,15 +68,18 @@ if($_COOKIE[$cookie_name] != $token) {
 		<img src="logo.png" onclick="copyright_date()" class="rounded" alt="Mercury" height="10%" style="animation-name: fade-in; animation-duration: 3s; position: relative;">
 	</div>
 	<br>
-	<div class="text-center">
-		<iframe src="raw_chat.php#bottom" class="rounded" height="65%" width="90%" title="ChatFrame" id="chat" style="animation-name: slide-right; animation-duration: 1.5s; position: relative;"></iframe>
+	<div class="container text-center">
+		<iframe src="chat.php" class="rounded" height="65%" width="100%" title="ChatFrame" id="chat" style="animation-name: slide-right; animation-duration: 1.5s; position: relative;"></iframe>
 		<iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
-
+		<br><br>
 		<form method="post" action="send_message.php" target="dummyframe">
-			<code><input type="text" name="message" id="message" placeholder="Type something..." class="rounded" style="color: #FFBF80; background-color: #1a1a1a; border: none; outline: none; width: 90%; height: 6%; animation-name: slide-left; animation-duration: 1.5s; position: relative;"></code>
+			<code class="d-flex justify-content-between h-25">
+				<input class="rounded" type="text" name="nickname" id="nickname" placeholder=" Name" style="color: #FFBF80; background-color: #1a1a1a; border: none; outline: none; height: 20%; width: 20%; animation-name: slide-left; animation-duration: 1.5s; position: relative; font-size: 12px;">
+				<input class="rounded" type="text" name="message" id="message" placeholder=" Type something..." style="color: #FFBF80; background-color: #1a1a1a; border: none; outline: none; height: 20%; width: 60%; animation-name: slide-left; animation-duration: 1.5s; position: relative; font-size: 12px;">
+				<button class="rounded" type="submit" id="submit" style="color: #FFBF80; background-color: #1a1a1a; border: none; outline: none; height: 20%; width: 15%; animation-name: slide-left; animation-duration: 1.5s; position: relative;"><img src="send_icon.png" height="40%"/></button>
+			</code>
 		</form>
 	</div>
-	<br>
 	<div class="container text-center text-muted">
 		<footer id="copyright" style="cursor: pointer;"></footer>
 	</div>
