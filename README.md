@@ -39,4 +39,4 @@ git clone https://github.com/90N45-d3v/Mercury
 
 #### 4. Start your webserver
 - Just as your choosen webserver describes it
-###### To communicate over WAN (Not only in your own network), you need to do Port-Forwarding ([Tutorial](https://www.lifewire.com/how-to-port-forward-4163829))
+###### To communicate over WAN (Not only in your own local network), you need to do Port-Forwarding ([Tutorial](https://www.lifewire.com/how-to-port-forward-4163829))
