@@ -48,7 +48,7 @@ if(isset($_COOKIE[$cookie_name])) {
 </head>
 
 <body style="background-color: #1a1a1a;">
-	<div style="margin: 10px;">
+	<div style="margin: 10px; bottom: 0; position: absolute;">
 			<code style="color: #FFBF80;">
 				<?php
 				$file = fopen("../raw_msgs.txt", "r");
@@ -59,6 +59,5 @@ if(isset($_COOKIE[$cookie_name])) {
 				}
 				?>
 			</code>
-			<footer id="bottom"></footer>
 	</div>
 </html>
