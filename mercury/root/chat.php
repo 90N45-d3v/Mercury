@@ -14,7 +14,7 @@ $cookie_name = "mercury_auth";
 
 if(isset($_COOKIE[$cookie_name])) {
 	if($_COOKIE[$cookie_name] != $token) {
-    	header("Location: /authentication.html");
+    	echo "<script>window.top.location.href = \"/authentication.html\";</script>";
     }
 } else {
 	header("Location: /authentication.html");

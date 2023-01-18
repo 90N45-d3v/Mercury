@@ -60,7 +60,7 @@ if(isset($_COOKIE[$cookie_name])) {
 		document.addEventListener("keyup", function(event) {
 			if (event.key === 'Enter' || event.code === 'Enter' || event.which === '13') {
 				document.getElementById("message").value = "";
-				document.getElementById("submit").click()
+				document.getElementById("submit").click();
 			}
 		})
 	</script>
@@ -78,7 +78,7 @@ if(isset($_COOKIE[$cookie_name])) {
 		<br><br>
 		<form method="post" action="send_message.php" target="dummyframe" style="animation-name: slide-left; animation-duration: 1.5s; position: relative;">
 			<code class="d-flex justify-content-between h-25">
-				<input class="rounded" type="text" name="nickname" id="nickname" placeholder=" Name" style="color: #FFBF80; background-color: #1a1a1a; border: none; outline: none; height: 20%; width: 20%; font-size: 12px;">
+				<input class="text-center rounded" type="text" name="nickname" id="nickname" placeholder="Name" style="color: #FFBF80; background-color: #1a1a1a; border: none; outline: none; height: 20%; width: 20%; font-size: 12px;">
 				<input class="rounded" type="text" name="message" id="message" placeholder=" Type something..." style="color: #FFBF80; background-color: #1a1a1a; border: none; outline: none; height: 20%; width: 60%; font-size: 12px;">
 				<button class="rounded" type="submit" id="submit" style="color: #FFBF80; background-color: #1a1a1a; border: none; outline: none; height: 20%; width: 15%;"><img src="send_icon.png" height="40%"/></button>
 			</code>
