@@ -16,6 +16,8 @@ if(isset($_COOKIE[$cookie_name])) {
 	if($_COOKIE[$cookie_name] != $token) {
     	header("Location: /authentication.html");
     }
+} else {
+	header("Location: /authentication.html");
 }
 ?>
 <html>
