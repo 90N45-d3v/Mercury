@@ -12,8 +12,10 @@ if (str_contains($token, $date)) {
 
 $cookie_name = "mercury_auth";
 
-if($_COOKIE[$cookie_name] != $token) {
-    header("Location: /authentication.html");
+if(isset($_COOKIE[$cookie_name])) {
+	if($_COOKIE[$cookie_name] != $token) {
+    	header("Location: /authentication.html");
+    }
 }
 ?>
 <html>
