@@ -69,7 +69,7 @@ if(isset($_COOKIE[$cookie_name])) {
 <body style="background-color: #000000;">
 	<br>
 	<div class="text-center">
-		<img src="logo.png" onclick="copyright_date()" class="rounded" alt="Mercury" height="10%" style="animation-name: fade-in; animation-duration: 3s; position: relative;">
+		<img src="logo.png" rel="preload" onclick="copyright_date()" class="rounded" alt="Mercury" height="10%" style="animation-name: fade-in; animation-duration: 3s; position: relative;">
 	</div>
 	<br>
 	<div class="container text-center">
