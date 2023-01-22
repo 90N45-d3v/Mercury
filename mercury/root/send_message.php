@@ -23,7 +23,7 @@ if($_COOKIE[$cookie_name] != $token) {
         if($nick_name == "") {
             $nick_name = "Guest";
         }
-        $message = "[" . date("H:i") . "]" . "-[" . $nick_name . "] " . $msg . "\n";
+        $message = "<sub>" . date("H:i") . " </sub>" . "<b>" . $nick_name . "</b> <i>" . $msg . "</i>\n";
         $file = fopen("../raw_msgs.txt", "a");
         fwrite($file, $message);
         fclose($file);

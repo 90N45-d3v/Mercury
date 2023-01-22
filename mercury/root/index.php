@@ -4,18 +4,18 @@ $token = fread($file,filesize("../token.txt"));
 $date = date("Ymd");
 
 if (str_contains($token, $date)) {
-    fclose($file);
+	fclose($file);
 } else {
 	header("Location: /authentication.html");
-    fclose($file);
+	fclose($file);
 }
 
 $cookie_name = "mercury_auth";
 
 if(isset($_COOKIE[$cookie_name])) {
 	if($_COOKIE[$cookie_name] != $token) {
-    	header("Location: /authentication.html");
-    }
+		header("Location: /authentication.html");
+	}
 } else {
 	header("Location: /authentication.html");
 }
@@ -35,8 +35,28 @@ if(isset($_COOKIE[$cookie_name])) {
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
 	<style>
+		::-webkit-scrollbar {
+			width: 12px;
+		}
+
+		::-webkit-scrollbar-track {
+			background-color: #000000;
+			border-radius: 0px;
+		}
+
+		::-webkit-scrollbar-thumb {
+			border-radius: 10px;
+			-webkit-box-shadow: inset 0 0 6px rgba(255, 191, 128, 7);
+		}
+
 		@keyframes fade-in {
 			0% {opacity: 0.0;}
+			100% {opacity: 1;}
+		}
+
+		@keyframes fade-in-broken {
+			0% {opacity: 0.0;}
+			80% {opacity: 0.0;}
 			100% {opacity: 1;}
 		}
 
@@ -49,8 +69,14 @@ if(isset($_COOKIE[$cookie_name])) {
 			0% {opacity: 0.0; right: -200px;}
 			100% {opacity: 1; right: 0px;}
 		}
+
+		.opacity-out {
+			-webkit-mask-image: linear-gradient(to top, black 80%, transparent 100%);
+			mask-image: linear-gradient(to top, black 80%, transparent 100%);
+		}
 	</style>
 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 	<script type="text/javascript">
 		function copyright_date() {
 			let date =  new Date().getFullYear();
@@ -63,6 +89,14 @@ if(isset($_COOKIE[$cookie_name])) {
 				document.getElementById("submit").click();
 			}
 		})
+
+		function update() {
+			$.get("chat.php", function(data, status) {
+				document.getElementById("chat").innerHTML = data;
+			});
+		}
+
+		setInterval(update, 2000);
 	</script>
 </head>
 
@@ -72,8 +106,12 @@ if(isset($_COOKIE[$cookie_name])) {
 		<img src="logo.png" rel="preload" onclick="copyright_date()" class="rounded" alt="Mercury" height="10%" style="animation-name: fade-in; animation-duration: 3s; position: relative;">
 	</div>
 	<br>
-	<div class="container text-center">
-		<iframe src="chat.php" class="rounded" height="65%" width="100%" title="ChatFrame" id="chat" style="animation-name: slide-right; animation-duration: 1.5s; position: relative;"></iframe>
+	<div class="container">
+		<div style="height: 65%; width: 100%; background-color: #1a1a1a; animation-name: slide-right; animation-duration: 1.5s; position: relative;">
+			<div class="opacity-out" style="height:100%; width: 100%;">
+				<code id="chat" style="color: #FFBF80; margin: 10px; bottom: 0; position: absolute; animation-name: fade-in-broken; animation-duration: 3s;"></code>
+			</div>
+		</div>
 		<iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
 		<br><br>
 		<form method="post" action="send_message.php" target="dummyframe" style="animation-name: slide-left; animation-duration: 1.5s; position: relative;">
