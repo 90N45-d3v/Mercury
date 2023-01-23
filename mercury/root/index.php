@@ -78,11 +78,6 @@ if(isset($_COOKIE[$cookie_name])) {
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 	<script type="text/javascript">
-		function copyright_date() {
-			let date =  new Date().getFullYear();
-			document.getElementById("copyright").innerHTML = "<p style=\"animation-name: fade-in; animation-duration: 3s;\"> &copy; " + date + " 90N45<br>All rights reserved. </p>";
-		}
-
 		document.addEventListener("keyup", function(event) {
 			if (event.key === 'Enter' || event.code === 'Enter' || event.which === '13') {
 				document.getElementById("message").value = "";
@@ -90,13 +85,50 @@ if(isset($_COOKIE[$cookie_name])) {
 			}
 		})
 
+		function copyright_date() {
+			let date =  new Date().getFullYear();
+			document.getElementById("copyright").innerHTML = "<p style=\"animation-name: fade-in; animation-duration: 3s;\"> &copy; " + date + " 90N45<br>All rights reserved. </p>";
+		}
+
 		function update() {
-			$.get("chat.php", function(data, status) {
-				document.getElementById("chat").innerHTML = data;
-			});
+			if (navigator.onLine === true) {
+				$.get("chat.php", function(data, status) {
+					last_chat_state = document.getElementById("chat").innerHTML
+					document.getElementById("chat").innerHTML = data;
+					if (last_chat_state !== "" && last_chat_state !== document.getElementById("chat").innerHTML) {
+						console.log("New message");
+						if (document.visibilityState === "hidden") {
+							sendNotification("Mercury", "Someone sent you a message!");
+						}
+					}
+				});
+			} else {
+				alert("YOU ARE OFFLINE...\nPlease stay connected to the Internet to receive any further messages");
+			}
+		}
+
+		function notifyPermission() {
+			if (Notification.permission !== 'granted') {
+				Notification.requestPermission(permission => {
+					if(permission === 'granted') {
+						sendNotification("Permission granted", "Mercury can now keep you up to date!");
+						console.log("OK")
+					}
+				});
+			}
+		}
+
+		function sendNotification(title, text) {
+			if(Notification.permission === 'granted') {
+				const notification = new Notification(title, {
+					body: text,
+					icon: 'm_icon.png'
+				});
+			}
 		}
 
 		setInterval(update, 2000);
+		notifyPermission();
 	</script>
 </head>
 
