@@ -25,7 +25,7 @@ if(isset($_COOKIE[$cookie_name])) {
 	<link rel="SHORTCUT ICON" type="image/x-icon" href="m_icon.png"/>
 	<link rel="icon" type="image/x-icon" href="m_icon.png" />
 
-	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<meta content="width=device-width, initial-scale=1.0, user-scalable=no" name="viewport">
 	<meta http-equiv="content-type" content="text/html" charset="utf-8">
 
 	<meta name="author" content="90N45">
