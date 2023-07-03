@@ -18,9 +18,29 @@
       100% {opacity: 1;}
     }
 
+    @keyframes fly-in-logo {
+      0% {scale: 2;}
+      100% {scale: 1;}
+    }
+
     @keyframes slide-in {
       0% {opacity: 0.0; top: -100px;}
       100% {opacity: 1; top: 0px;}
+    }
+
+    ::placeholder {
+      color: grey;
+    }
+
+    .buttonEnter {
+      transition-duration: 0.5s;
+      color: grey;
+      background-color: #000000;
+    }
+
+    .buttonEnter:hover {
+      color: #000000;
+      background-color: #FFBF80;
     }
   </style>
 
@@ -29,6 +49,14 @@
       let date =  new Date().getFullYear();
       document.getElementById("copyright").innerHTML = "<p style=\"animation-name: fade-in; animation-duration: 3s;\"> &copy; " + date + " 90N45<br>All rights reserved. </p>";
     }
+
+    window.onload = function secondtry() {
+      if (document.referrer == window.location.href) {
+        document.getElementById("message").innerHTML = "<a><small><code style=\"color: #FFBF80; animation-name: fade-in; animation-duration: 6s; position: relative;\">The password you entered seems to be wrong...</code></small></a>";
+      }
+    }
+
+    secondtry();
   </script>
 </head>
 
@@ -39,11 +67,15 @@
   </div>
   <br>
   <div class="form-group text-center">
-    <form method="post" action="auth_process.php">
-      <input type="password" id="pwd" name="pwd" placeholder="🔑" class="text-center" style="color: #FFBF80; background-color: #000000; border: none; outline: none; cursor: default; caret-color: transparent; animation-name: slide-in; animation-duration: 1.5s; position: relative;">
+    <form method="post" action="auth_process.php" style="animation-name: slide-in; animation-duration: 1.5s; position: relative;">
+      <code>
+        <input class="rounded text-center" type="password" id="pwd" name="pwd" placeholder="Password" style="color: #FFBF80; background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80; line-height: 1.7;" required>
+      </code>
     </form>
   </div>
 </body>
+<br>
+<div class="text-center" id="message"></div>
 <br>
 <div class="container text-center text-muted">
     <footer id="copyright" style="cursor: pointer;"></footer>
