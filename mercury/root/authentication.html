@@ -18,11 +18,6 @@
       100% {opacity: 1;}
     }
 
-    @keyframes fly-in-logo {
-      0% {scale: 2;}
-      100% {scale: 1;}
-    }
-
     @keyframes slide-in {
       0% {opacity: 0.0; top: -100px;}
       100% {opacity: 1; top: 0px;}
@@ -31,23 +26,18 @@
     ::placeholder {
       color: grey;
     }
-
-    .buttonEnter {
-      transition-duration: 0.5s;
-      color: grey;
-      background-color: #000000;
-    }
-
-    .buttonEnter:hover {
-      color: #000000;
-      background-color: #FFBF80;
-    }
   </style>
 
   <script type="text/javascript">
     function copyright_date() {
       let date =  new Date().getFullYear();
       document.getElementById("copyright").innerHTML = "<p style=\"animation-name: fade-in; animation-duration: 3s;\"> &copy; " + date + " 90N45<br>All rights reserved. </p>";
+    }
+
+    function showButton() {
+      if (document.getElementById("pwd").value != "") {
+        document.getElementById("submit").style.visibility = "visible";
+      }
     }
 
     window.onload = function secondtry() {
@@ -67,10 +57,11 @@
   </div>
   <br>
   <div class="form-group text-center">
-    <form method="post" action="auth_process.php" style="animation-name: slide-in; animation-duration: 1.5s; position: relative;">
-      <code>
-        <input class="rounded text-center" type="password" id="pwd" name="pwd" placeholder="Password" style="color: #FFBF80; background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80; line-height: 1.7;" required>
-      </code>
+    <form method="post" action="auth_process.php">
+      <input class="rounded text-center" type="password" id="pwd" name="pwd" placeholder="Password" class="text-center" style="color: #FFBF80; background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80; animation-name: slide-in; animation-duration: 1.5s; position: relative;" onkeyup="showButton()" required>
+      <br>
+      <br>
+      <button class="rounded text-center buttonEnter" type="submit" id="submit" name="submit" style="color: #FFBF80; background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80; visibility: hidden;"><img src="m_icon.png" rel="preload" class="rounded" alt="Mercury" height="21"><b> Login</b></button>
     </form>
   </div>
 </body>
