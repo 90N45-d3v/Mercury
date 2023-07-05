@@ -24,10 +24,6 @@ if(array_key_exists('backup', $_POST)) {
 	backupChat();
 } else if(array_key_exists('clear', $_POST)) {
 	clearHistory();
-} else if(array_key_exists('success', $_POST)) {
-	successfullLogins();
-} else if(array_key_exists('failed', $_POST)) {
-	failedLogins();
 }
 
 // System Storage
@@ -57,20 +53,6 @@ function backupChat() {
 
 function clearHistory() {
 	file_put_contents('../../raw_msgs.txt', '');
-}
-
-function successfullLogins() {
-	header("Content-Type: application/csv");
-	header("Content-Disposition: attachment; filename=success_login.csv");
-	header("Content-Length: ". filesize("../Logs/success_login.csv"));
-	readfile("../Logs/success_login.csv");
-}
-
-function failedLogins() {
-	header("Content-Type: application/csv");
-	header("Content-Disposition: attachment; filename=fail_login.csv");
-	header("Content-Length: ". filesize("../Logs/fail_login.csv"));
-	readfile("../Logs/fail_login.csv");
 }
 ?>
 <html>
@@ -161,12 +143,12 @@ function failedLogins() {
 			<div style="max-width: 100%">
 				<h4 style="color: #FFBF80;">User</h4>
 				<div class="container" style="width: 500px; max-width: 100%">
-					<form method="post">
+					<form method="post" action="success_login_download.php">
 						<button class="rounded text-center respButton" type="submit" id="submit" name="success" style="background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80;">Download Successfull Logins (150 Max.)</button>
 					</form>
 				</div>
 				<div class="container" style="width: 500px; max-width: 100%">
-					<form method="post">
+					<form method="post" action="fail_login_download.php">
 						<button class="rounded text-center respButton" type="submit" id="submit" name="failed" style="background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80;">Download Failed Login Attempts (100 Max.)</button>
 					</form>
 				</div>
