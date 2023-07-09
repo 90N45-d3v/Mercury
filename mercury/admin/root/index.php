@@ -24,6 +24,10 @@ if(array_key_exists('backup', $_POST)) {
 	backupChat();
 } else if(array_key_exists('clear', $_POST)) {
 	clearHistory();
+} else if(array_key_exists('ad_ip', $_POST)) {
+	adIP($_POST['ip']);
+} else if(array_key_exists('rm_ip', $_POST)) {
+	removeIP($_POST['ip']);
 }
 
 // System Storage
@@ -53,6 +57,24 @@ function backupChat() {
 
 function clearHistory() {
 	file_put_contents('../../raw_msgs.txt', '');
+}
+
+function adIP($ip) {
+	$path = "../blacklist.txt";
+	$list = file_get_contents($path);
+
+	if (str_contains($list, $ip) != true) {
+		$list .= $ip . "\n";
+		file_put_contents($path, $list);
+	}
+}
+
+function removeIP($ip) {
+	$path = "../blacklist.txt";
+	$list = file_get_contents($path);
+
+	$list = str_replace($ip . "\n", "", $list);
+	file_put_contents($path, $list);
 }
 ?>
 <html>
@@ -127,15 +149,15 @@ function clearHistory() {
 					<p class="text-secondary">Chat Size: <b><?php echo $chat_size; ?> MB</b></p>
 				</div>
 				<br>
-				<h4 style="color: #FFBF80;">Conversation</h4>
+				<h4 style="color: #FFBF80;">IP Restriction</h4>
 				<div class="container" style="width: 500px; max-width: 100%">
 					<form method="post">
-						<button class="rounded text-center respButton" type="submit" id="submit" name="backup" style="background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80;">Backup Chat</button>
+						<input class="rounded text-center" type="text" id="ip" name="ip" placeholder="Enter IP Address" class="text-center" style="color: #FFBF80; background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80; animation-name: slide-in; animation-duration: 1.5s; position: relative;" onkeyup="" required>
+						<button class="rounded text-center respButton" type="submit" id="submit" name="ad_ip" style="background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80;">Add</button>
+						<button class="rounded text-center respButton" type="submit" id="submit" name="rm_ip" style="background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80;">Remove</button>
 					</form>
-				</div>
-				<div class="container" style="width: 500px; max-width: 100%">
-					<form method="post">
-						<button class="rounded text-center respButton" type="submit" id="submit" name="clear" style="background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80;">Clear History</button>
+					<form method="post" action="blacklist_download.php">
+						<button class="rounded text-center respButton" type="submit" id="submit" name="ip_list" style="background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80;">Download Blocked IP List</button>
 					</form>
 				</div>
 				<br>
@@ -150,6 +172,18 @@ function clearHistory() {
 				<div class="container" style="width: 500px; max-width: 100%">
 					<form method="post" action="fail_login_download.php">
 						<button class="rounded text-center respButton" type="submit" id="submit" name="failed" style="background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80;">Download Failed Login Attempts (100 Max.)</button>
+					</form>
+				</div>
+				<br>
+				<h4 style="color: #FFBF80;">Conversation</h4>
+				<div class="container" style="width: 500px; max-width: 100%">
+					<form method="post">
+						<button class="rounded text-center respButton" type="submit" id="submit" name="backup" style="background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80;">Backup Chat</button>
+					</form>
+				</div>
+				<div class="container" style="width: 500px; max-width: 100%">
+					<form method="post">
+						<button class="rounded text-center respButton" type="submit" id="submit" name="clear" style="background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80;">Clear History</button>
 					</form>
 				</div>
 			</div>
