@@ -1,0 +1,92 @@
+<html>
+<head>
+  <link rel="SHORTCUT ICON" type="image/x-icon" href="m_icon.png"/>
+  <link rel="icon" type="image/x-icon" href="m_icon.png" />
+
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <meta http-equiv="content-type" content="text/html" charset="utf-8">
+
+  <meta name="author" content="90N45">
+  <meta name="description" content="Mercury - Web-Based Communication System">
+  <title>Mercury - Communication System</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+  <style>
+    ::-webkit-scrollbar {
+      width: 12px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background-color: #000000;
+      border-radius: 0px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      -webkit-box-shadow: inset 0 0 6px rgba(255, 191, 128, 7);
+    }
+
+    @keyframes fade-in {
+      0% {opacity: 0.0;}
+      50% {opacity: 0.0;}
+      100% {opacity: 1;}
+    }
+
+    @keyframes slide-in {
+      0% {opacity: 0.0; left: -200px;}
+      100% {opacity: 1; left: 0px;}
+    }
+
+    ::placeholder {
+      color: grey;
+    }
+
+    .typewriter code {
+      overflow: hidden;
+      border-right: .15em solid #FFBF80;
+      animation: 
+        blink-caret .75s step-end infinite;
+    }
+
+    @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: #FFBF80; }
+    }
+
+    .respLink {
+      color: #6c757d;
+    }
+
+    .respLink:hover {
+      color: #FFBF80;
+    }
+  </style>
+
+  <script type="text/javascript">
+  </script>
+</head>
+
+<body style="background-color: #000000;">
+  <br>
+  <div class="text-center">
+    <img src="logo.png" rel="preload" class="rounded" alt="Mercury" height="120">
+  </div>
+  <br>
+  <div class="container">
+    <div style="display: flex; flex-flow: wrap; justify-content: center;">
+      <div style="max-width: 100%">
+        <div class="container" style="white-space: nowrap;">
+          <img src="demo.png" height="500" class="rounded" style="border: 1px solid #FFBF80; animation-name: slide-in; animation-duration: 3s; position: relative;">
+          <code style="writing-mode: vertical-lr; color: #FFBF80; animation-name: fade-in; animation-duration: 6s; position: relative;"><small><i>Preview</i></small></code>
+        </div>
+        <br>
+      </div>
+      <div class="container typewriter" style="max-width: 100%; width: 90vh;">
+        <code style="color: #FFBF80;">Mercury is a DIY communication system. It acts as a web-based group chat. The project is open source and can be hosted at home on a Raspberry Pi or at an online hosting service of your choice. Since the server's code is freely accessible and offers a self-hosting option, you have complete control over data sharing with third parties. So if you would like to have your own messenger under your own control and prefer to keep your personal data on your own server, Mercury is for you.<br><br>You're interested? <a class="text-decoration-none respLink" href="mailto:90N45.d3v@gmail.com"><i>Let me know!</i></a></code>
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+</html>
