@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-Mercury is a DIY communication system. It's a webserver, and works like a web based group chat.<br>Of course it is not as secure as Telegram or similar messengers (at least I hope so), but I still try to make it as secure as possible. Mercury is open source. You can host it at home on a Raspberry Pi or with the online hoster of your choice.<br>You have full control of it.
+Mercury is a DIY communication system. It acts as a web-based group chat. The project is open source and can be hosted at home on a Raspberry Pi or at an online hosting service of your choice.
 </p>
 
 # Installation on a homeserver (ex. Raspberry Pi)
