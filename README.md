@@ -8,6 +8,7 @@
 <p align="center">
 Mercury is a DIY communication system. It acts as a web-based group chat. The project is open source and can be hosted at home on a Raspberry Pi or at an online hosting service of your choice.
 </p>
+<h3 align="center"><code>Under early development...</code></h3>
 
 # Installation on a (home-)server
 *For the following instructions:* Keep in mind, that Mercury got it's normal messaging functions on one website and an adminpanel on the other. These two should be hosted on seperated ports. With this structure, you will be able, to forward both websites to the internet for access from everywhere (less secure, but you can get admin privileges from everywhere) or hide the adminpanel behind a local network to get an extra layer of security.
@@ -42,7 +43,7 @@ git clone https://github.com/90N45-d3v/Mercury
 - From the webpage: `<> Code` --> `local` --> `Download ZIP`
 
 #### 3. Setup up your webserver with Apache2, Nginx...
-- Set 777 file permission to `raw_msgs.txt`, `token.txt`, `admin/token.txt` and `admin/blacklist.txt` (UNIX: `chmod 777 <FILE>`)
+- Set 777 file permission to `raw_msgs.txt`, `admin/token.txt` and `admin/blacklist.txt` (`chmod 777 <FILE>`)
 - Enable PHP on web-server
   ##### For Mercury
 - Change root directory in web-server config to `mercury/root`
