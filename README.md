@@ -6,10 +6,10 @@
 </p>
 
 <p align="center">
-Mercury is a DIY communication system. It's a webserver, and works like a web based group chat.<br>Of course it is not as secure as Telegram or similar messengers (at least I hope so), but I still try to make it as secure as possible. Mercury is open source. You can host it at home on a Raspberry Pi or with the online hoster of your choice.<br>You have full control of it.
+Mercury is a DIY communication system. It acts as a web-based group chat. The project is open source and can be hosted at home on a Raspberry Pi or at an online hosting service of your choice.
 </p>
 
-# Installation
+# Installation on a homeserver (ex. Raspberry Pi)
 #### *Quik run with PHP's developer server*
 ````
 php -S <LOCAL IP-ADDRESS>:<PORT>
@@ -33,10 +33,13 @@ git clone https://github.com/90N45-d3v/Mercury
 - From the webpage: `<> Code` --> `local` --> `Download ZIP`
 
 #### 3. Setup up your webserver with Apache2, Nginx...
-- Set 777 file permission to `raw_msgs.txt` and `token.txt` (UNIX: `chmod 777 <FILE>`)
-- Change root directory in web-server config to `Mercury/mercury/root`
+- Set 777 file permission to `raw_msgs.txt`, `token.txt`, `admin/token.txt` and `admin/blacklist.txt` (UNIX: `chmod 777 <FILE>`)
 - Enable PHP on web-server
+  ##### For the Mercury Messenger webserver
+- Change root directory in web-server config to `mercury/root`
+  ##### For the Mercury Admin-Panel webserver (If the Admin-Panel is not needed, you can skip this)
+- Change root directory in second web-server config to `mercury/admin/root`
 
-#### 4. Start your webserver
+#### 4. Configure last things and start your webserver
 - Just as your choosen webserver describes it
-###### To communicate over WAN (Not only in your own local network), you need to do Port-Forwarding ([Tutorial](https://www.lifewire.com/how-to-port-forward-4163829))
+###### Keep in mind, that if you want to communicate over WAN (Not only in your own local network) and you are hosting Mercury at home, you need to do Port-Forwarding ([Tutorial](https://www.lifewire.com/how-to-port-forward-4163829))
