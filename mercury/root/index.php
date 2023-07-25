@@ -1,19 +1,24 @@
 <?php
-$file = fopen("../token.txt", "r");
-$token = fread($file,filesize("../token.txt"));
-$date = date("Ymd");
+if (isset($_COOKIE["mercury_usr"]) && isset($_COOKIE["mercury_auth"])) {
+	$user = $_COOKIE["mercury_usr"];
+	$user_path = "../user/" . $user;
+	if (file_exists($user_path) && $user != "." && $user != "..") {
+		$token_path = "../user/" . $user . "/token.txt";
+	    $file = fopen($token_path, "r");
+	    $date = date("Ymd");
+	    $token_r = fread($file,filesize($token_path));
 
-if (str_contains($token, $date)) {
-	fclose($file);
-} else {
-	header("Location: /authentication.html");
-	fclose($file);
-}
+		if (str_contains($token_r, $date)) {
+			fclose($file);
+		} else {
+			header("Location: /authentication.html");
+			fclose($file);
+		}
 
-$cookie_name = "mercury_auth";
-
-if(isset($_COOKIE[$cookie_name])) {
-	if($_COOKIE[$cookie_name] != $token) {
+	    if ($_COOKIE["mercury_auth"] != $token_r) {
+	    	header("Location: /authentication.html");
+	    }
+	} else {
 		header("Location: /authentication.html");
 	}
 } else {
@@ -107,6 +112,10 @@ if(isset($_COOKIE[$cookie_name])) {
 			}
 		}
 
+		function clearText() {
+			document.getElementById("message").value = "";
+		}
+
 		function notifyPermission() {
 			if (Notification.permission !== 'granted') {
 				Notification.requestPermission(permission => {
@@ -148,8 +157,7 @@ if(isset($_COOKIE[$cookie_name])) {
 		<br><br>
 		<form method="post" action="send_message.php" target="dummyframe" style="animation-name: slide-left; animation-duration: 1.5s; position: relative;">
 			<code class="d-flex justify-content-between h-25">
-				<input class="text-center rounded" type="text" name="nickname" id="nickname" placeholder="Name" style="color: #FFBF80; background-color: #1a1a1a; border: none; outline: none; height: 20%; width: 20%; font-size: 12px;">
-				<input class="rounded" type="text" name="message" id="message" placeholder=" Type something..." style="color: #FFBF80; background-color: #1a1a1a; border: none; outline: none; height: 20%; width: 60%; font-size: 12px;">
+				<input class="rounded" type="text" name="message" id="message" placeholder=" Type something..." style="color: #FFBF80; background-color: #1a1a1a; border: none; outline: none; height: 20%; width: 80%; font-size: 12px;">
 				<button class="rounded" type="submit" id="submit" style="color: #FFBF80; background-color: #1a1a1a; border: none; outline: none; height: 20%; width: 15%;"><img src="send_icon.png" height="40%"/></button>
 			</code>
 		</form>

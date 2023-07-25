@@ -35,14 +35,14 @@
     }
 
     function showButton() {
-      if (document.getElementById("pwd").value != "") {
+      if (document.getElementById("usr").value != "" || document.getElementById("pwd").value != "") {
         document.getElementById("submit").style.visibility = "visible";
       }
     }
 
     window.onload = function secondtry() {
       if (document.referrer == window.location.href) {
-        document.getElementById("message").innerHTML = "<a><small><code style=\"color: #FFBF80; animation-name: fade-in; animation-duration: 6s; position: relative;\">The password you entered seems to be wrong...</code></small></a>";
+        document.getElementById("message").innerHTML = "<a><small><code style=\"color: #FFBF80; animation-name: fade-in; animation-duration: 6s; position: relative;\">The credentials you entered seem to be incorrect...</code></small></a>";
       }
     }
 
@@ -58,6 +58,8 @@
   <br>
   <div class="form-group text-center">
     <form method="post" action="auth_process.php">
+      <input class="rounded text-center" type="text" id="usr" name="usr" placeholder="Username" class="text-center" style="color: #FFBF80; background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80; animation-name: slide-in; animation-duration: 1.5s; position: relative; margin-bottom: 10px;" onkeyup="showButton()" required>
+      <br>
       <input class="rounded text-center" type="password" id="pwd" name="pwd" placeholder="Password" class="text-center" style="color: #FFBF80; background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80; animation-name: slide-in; animation-duration: 1.5s; position: relative;" onkeyup="showButton()" required>
       <br>
       <br>
@@ -65,7 +67,6 @@
     </form>
   </div>
 </body>
-<br>
 <div class="text-center" id="message"></div>
 <br>
 <div class="container text-center text-muted">
