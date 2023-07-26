@@ -37,7 +37,8 @@ if (isset($_COOKIE["mercury_usr"]) && isset($_COOKIE["mercury_auth"])) {
 	<meta name="description" content="Mercury - Web-Based Communication System">
 	<title>Mercury - Communication System</title>
 
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 
 	<style>
 		::-webkit-scrollbar {
@@ -65,6 +66,11 @@ if (isset($_COOKIE["mercury_usr"]) && isset($_COOKIE["mercury_auth"])) {
 			100% {opacity: 1;}
 		}
 
+		@keyframes slide-left-Msg {
+			0% {opacity: 0.0; top: -1000px}
+			100% {opacity: 1; top: 0px}
+		}
+
 		@keyframes slide-left {
 			0% {opacity: 0.0; left: -200px;}
 			100% {opacity: 1; left: 0px;}
@@ -83,10 +89,12 @@ if (isset($_COOKIE["mercury_usr"]) && isset($_COOKIE["mercury_auth"])) {
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 	<script type="text/javascript">
+
+		var offline = false;
+
 		document.addEventListener("keyup", function(event) {
 			if (event.key === 'Enter' || event.code === 'Enter' || event.which === '13') {
 				document.getElementById("message").value = "";
-				document.getElementById("submit").click();
 			}
 		})
 
@@ -107,12 +115,19 @@ if (isset($_COOKIE["mercury_usr"]) && isset($_COOKIE["mercury_auth"])) {
 						}
 					}
 				});
+				if (offline) {
+					offline = false;
+				}
 			} else {
-				alert("YOU ARE OFFLINE...\nPlease stay connected to the Internet to receive any further messages");
+				if (offline == false) {
+					message("<b>YOU ARE OFFLINE...</b> Please stay connected to the Internet to receive any further messages!")
+					offline = true;
+				}
 			}
 		}
 
-		function clearText() {
+		function buttonTriggerSend() {
+			document.getElementById("sendMessage").requestSubmit();
 			document.getElementById("message").value = "";
 		}
 
@@ -136,6 +151,16 @@ if (isset($_COOKIE["mercury_usr"]) && isset($_COOKIE["mercury_auth"])) {
 			}
 		}
 
+		function message(text) {
+			let message = '<div class="alert alert-dark alert-dismissible fade show" role="alert" style="position: fixed; top: 1vw; margin-left: 1.5vw; margin-right: 1.5vw; animation-name: slide-left-Msg; animation-duration: 1.5s; color: #FFBF80; background-color: #1a1a1a;" id="systemMsg">' + text + '<button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button></div>'
+			$('body').append(message);
+		}
+
+		function closeMessage(id) {
+			const alert = bootstrap.Alert.getOrCreateInstance("#systemMsg");
+			alert.close()
+		}
+
 		setInterval(update, 2000);
 		notifyPermission();
 	</script>
@@ -153,12 +178,12 @@ if (isset($_COOKIE["mercury_usr"]) && isset($_COOKIE["mercury_auth"])) {
 				<code id="chat" style="color: #FFBF80; margin: 10px; bottom: 0; position: absolute; animation-name: fade-in-broken; animation-duration: 3s;"></code>
 			</div>
 		</div>
-		<iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
+		<iframe name="dummyframe" id="dummyframe" style="display: none;" onsubmit="clearText()"></iframe>
 		<br><br>
-		<form method="post" action="send_message.php" target="dummyframe" style="animation-name: slide-left; animation-duration: 1.5s; position: relative;">
+		<form method="post" id="sendMessage" action="send_message.php" target="dummyframe" style="animation-name: slide-left; animation-duration: 1.5s; position: relative;">
 			<code class="d-flex justify-content-between h-25">
 				<input class="rounded" type="text" name="message" id="message" placeholder=" Type something..." style="color: #FFBF80; background-color: #1a1a1a; border: none; outline: none; height: 20%; width: 80%; font-size: 12px;">
-				<button class="rounded" type="submit" id="submit" style="color: #FFBF80; background-color: #1a1a1a; border: none; outline: none; height: 20%; width: 15%;"><img src="send_icon.png" height="40%"/></button>
+				<button class="rounded" type="button" style="color: #FFBF80; background-color: #1a1a1a; border: none; outline: none; height: 20%; width: 15%;" onclick="buttonTriggerSend()"><img src="send_icon.png" height="40%"/></button>
 			</code>
 		</form>
 	</div>
