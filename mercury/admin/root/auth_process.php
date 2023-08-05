@@ -1,21 +1,24 @@
 <?php
 $passwd = $_POST['pwd'];
-$file = fopen("../token.txt", "r");
-$token = fread($file,filesize("../token.txt"));
+$token_file = fopen("../token.txt", "r");
+$token = fread($token_file,filesize("../token.txt"));
 $n = 20;
 $date = date("Ymd");
 
 if (str_contains($token, $date)) {
-    fclose($file);
+    fclose($token_file);
 } else {
-    fclose($file);
-    $file = fopen("../token.txt", "w+");
+    fclose($token_file);
+    $token_file = fopen("../token.txt", "w+");
     $token = bin2hex(random_bytes($n)) . $date;
-    fwrite($file, $token);
-    fclose($file);
+    fwrite($token_file, $token);
+    fclose($token_file);
 }
 
-if ($passwd == "doritos") {
+$pwd_file = fopen("../pwd.txt", "r");
+$passwd_r = fread($pwd_file,filesize("../pwd.txt"));
+
+if ($passwd == $passwd_r) {
     setcookie("mercury_auth_admin", $token);
     header("Location: /index.php");
 } else {

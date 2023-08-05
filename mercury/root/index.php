@@ -85,6 +85,14 @@ if (isset($_COOKIE["mercury_usr"]) && isset($_COOKIE["mercury_auth"])) {
 			-webkit-mask-image: linear-gradient(to top, black 80%, transparent 100%);
 			mask-image: linear-gradient(to top, black 80%, transparent 100%);
 		}
+
+		.respButton {
+			color: #6c757d;
+		}
+
+		.respButton:hover {
+			color: #FFBF80;
+		}
 	</style>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
@@ -187,6 +195,10 @@ if (isset($_COOKIE["mercury_usr"]) && isset($_COOKIE["mercury_auth"])) {
 			</code>
 		</form>
 	</div>
+	<div class="container text-center">
+		<button class="rounded text-center" style="background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80;"><a class="respButton" style="text-decoration: none;" href="account.php">Settings</a></button>
+	</div>
+	<br>
 	<div class="container text-center text-muted">
 		<footer id="copyright" style="cursor: pointer;"></footer>
 	</div>

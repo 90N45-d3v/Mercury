@@ -42,6 +42,15 @@ if (array_key_exists('backup', $_POST)) {
 	} else if ($_POST['user_mgmt'] == "rm") {
 		removeUser($_POST['username']);
 	}
+
+} else if (array_key_exists('pwd0', $_POST)) {
+	if (array_key_exists('pwd1', $_POST)) {
+		if ($_POST['pwd0'] == $_POST['pwd1']) {
+			changeAdminPwd($_POST['pwd0']);
+		} else {
+			message("<b>FAIL: </b>To change the admin password, both entries must be equal.");
+		}
+	}
 }
 
 // System Storage
@@ -140,6 +149,13 @@ function removeUser($username) {
 		message("<b>FAIL: </b>User didn't exist: " . $username);
 	}
 }
+
+function changeAdminPwd($new_pwd) {
+    $file = fopen("../pwd.txt", "w+");
+    fwrite($file, $new_pwd);
+    fclose($file);
+	message("Admin's password changed successfully.");
+}
 ?>
 <html>
 <head>
@@ -223,6 +239,19 @@ function removeUser($username) {
 			}
 		}
 
+		function changeAdminPwd() {
+			val0 = document.getElementById("pwd0").value;
+			val1 = document.getElementById("pwd1").value;
+
+			if (val0 != val1) {
+				message("<b>FAIL: </b>To change the admin password, both entries must be equal.")
+			} else if (val0 == "") {
+				message("<b>FAIL: </b>To change the admin password, you must enter a new one.")
+			} else {
+				document.getElementById("changeAdminPwd").submit();
+			}
+		}
+
 		function message(text) {
 			let message = '<div class="alert alert-dark alert-dismissible fade show" role="alert" style="position: fixed; top: 1vw; margin-left: 1.5vw; margin-right: 1.5vw; animation-name: slide-in-left; animation-duration: 1.5s; color: #FFBF80; background-color: #1a1a1a;" id="systemMsg">' + text + '<button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button></div>'
 			$('body').append(message);
@@ -250,16 +279,16 @@ function removeUser($username) {
 	</div>
 	<br>
 	<div class="container">
-		<div style="display: flex; flex-flow: wrap;">
+		<div style="display: flex; flex-flow: wrap; justify-content: space-between;">
 			<div style="max-width: 100%">
 				<h4 style="color: #FFBF80;">Server Status</h4>
-				<div class="container" style="width: 500px; max-width: 100%">
+				<div class="container" style="max-width: 100%">
 					<p class="text-secondary">System Storage: <b><?php echo $storage; ?> GB</b></p>
 					<p class="text-secondary">Chat Size: <b><?php echo $chat_size; ?> MB</b></p>
 				</div>
 				<br>
 				<h4 style="color: #FFBF80;">IP Restriction</h4>
-				<div class="container" style="width: 500px; max-width: 100%">
+				<div class="container" style="max-width: 100%">
 					<form method="post" style="margin-bottom: 35px;">
 						<input class="rounded text-center" type="text" id="ip" name="ip" placeholder="IP Address" class="text-center" style="color: #FFBF80; background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80; animation-name: slide-in; animation-duration: 1.5s; position: relative;" onkeyup="" required>
 						<button class="rounded text-center respButton" type="submit" id="submit" style="background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80; margin-bottom: 15px;">OK</button>
@@ -275,7 +304,7 @@ function removeUser($username) {
 				</div>
 				<br>
 				<h4 style="color: #FFBF80;">Logins</h4>
-				<div class="container" style="width: 500px; max-width: 100%">
+				<div class="container" style="max-width: 100%">
 					<form method="post" action="success_login_download.php">
 						<button class="rounded text-center respButton" type="submit" id="submit" name="success" style="background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80;">Download Successfull Logins (150 Max.)</button>
 					</form>
@@ -287,7 +316,7 @@ function removeUser($username) {
 			</div>
 			<div style="max-width: 100%">
 				<h4 style="color: #FFBF80;">User Management</h4>
-				<div class="container" style="width: 500px; max-width: 100%">
+				<div class="container" style="max-width: 100%">
 					<form method="post">
 						<input class="rounded text-center" type="text" id="username" name="username" placeholder="Username" class="text-center" style="color: #FFBF80; background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80; animation-name: slide-in; animation-duration: 1.5s; position: relative; margin-right: 5px;" onkeyup="" required>
 						<button class="rounded text-center respButton" type="submit" id="submit" style="background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80; margin-bottom: 5px;">OK</button>
@@ -302,16 +331,29 @@ function removeUser($username) {
 				</div>
 				<br>
 				<h4 style="color: #FFBF80;">Conversation</h4>
-				<div class="container" style="width: 500px; max-width: 100%">
+				<div class="container" style="max-width: 100%">
 					<form method="post">
 						<button class="rounded text-center respButton" type="submit" id="submit" name="backup" style="background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80;">Backup Chat</button>
 					</form>
 				</div>
-				<div class="container" style="width: 500px; max-width: 100%">
+				<div class="container" style="max-width: 100%">
 					<form method="post">
 						<button class="rounded text-center respButton" type="submit" id="submit" name="clear" style="background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80;">Clear History</button>
 					</form>
 				</div>
+				<br>
+			</div>
+			<div style="max-width: 100%">
+				<h4 style="color: #FFBF80;">Admin's Login</h4>
+				<div class="container" style="max-width: 100%">
+					<form method="post" id="changeAdminPwd">
+						<input class="rounded text-center" type="password" id="pwd0" name="pwd0" placeholder="Password" class="text-center" style="color: #FFBF80; background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80; animation-name: slide-in; animation-duration: 1.5s; position: relative; margin-right: 5px; margin-bottom: 5px;">
+						<button class="rounded text-center respButton" type="button" id="button" style="background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80; margin-bottom: 5px;" onclick="changeAdminPwd()">OK</button>
+						<br id="UserPwdInputBreak">
+						<input class="rounded text-center" type="password" id="pwd1" name="pwd1" placeholder="Repeat Password" class="text-center" style="color: #FFBF80; background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80; animation-name: slide-in; animation-duration: 1.5s; position: relative; margin-right: 5px; margin-bottom: 5px;">
+					</form>
+				</div>
+				<br>
 			</div>
 		</div>
 	</div>
