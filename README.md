@@ -43,7 +43,7 @@ git clone https://github.com/90N45-d3v/Mercury
 - From the webpage: `<> Code` --> `local` --> `Download ZIP`
 
 #### 3. Setup up your webserver with Apache2, Nginx...
-- Set 777 file permission to `raw_msgs.txt`, `admin/token.txt` and `admin/blacklist.txt` (`chmod 777 <FILE>`)
+- Set 777 file permission to `raw_msgs.txt`, `admin/token.txt`, `admin/pwd.txt` and `admin/blacklist.txt` (`chmod 777 <FILE>`)
 - Enable PHP on web-server
   ##### For Mercury
 - Change root directory in web-server config to `mercury/root`
@@ -56,11 +56,7 @@ git clone https://github.com/90N45-d3v/Mercury
 #### 4. Configure last things and start your webserver
 - Just as your choosen webserver describes it
 
-#### 5. Default logins
-##### Mercury's default user (Should be deleted quickly)
-- Username: Guest
-- Password: GuestPassword
-##### Mercury's admin (Password should be changed quickly)
-- Password: doritos
+#### 5. Mercury's default admin password (Password should be changed quickly) (New users can be created on the admin's dashboard)
+- Password: mercury
 
 ###### Keep in mind, that if you want to communicate over WAN (Not only in your own local network) and you are hosting Mercury at home, you need to do Port-Forwarding ([Tutorial](https://www.lifewire.com/how-to-port-forward-4163829))
