@@ -44,6 +44,7 @@ git clone https://github.com/90N45-d3v/Mercury
 
 #### 3. Setup up your webserver with Apache2, Nginx...
 - Set 777 file permission to `raw_msgs.txt`, `admin/token.txt`, `admin/pwd.txt` and `admin/blacklist.txt` (`chmod 777 <FILE>`)
+- Set 777 folder permission to `user` (`chmod 777 <FOLDER>`)
 - Enable PHP on web-server
   ##### For Mercury
 - Change root directory in web-server config to `mercury/root`
