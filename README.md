@@ -43,7 +43,7 @@ git clone https://github.com/90N45-d3v/Mercury
 - From the webpage: `<> Code` --> `local` --> `Download ZIP`
 
 #### 3. Setup up your webserver with Apache2, Nginx...
-- Set 777 file permission to `raw_msgs.txt`, `admin/token.txt` and `admin/blacklist.txt` (`chmod 777 <FILE>`)
+- Set 777 file permission to `raw_msgs.txt`, `admin/token.txt`, `admin/pwd.txt` and `admin/blacklist.txt` (`chmod 777 <FILE>`)
 - Enable PHP on web-server
   ##### For Mercury
 - Change root directory in web-server config to `mercury/root`
