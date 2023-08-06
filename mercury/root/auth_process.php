@@ -48,7 +48,7 @@ if (file_exists($user_path) && $user != "." && $user != "..") {
     if ($passwd == $passwd_r) {
         $path = "../admin/Logs/success_login.csv";
 
-        if (count(file($path)) == 150) {
+        if (count(file($path)) == 1250) {
             $log = file_get_contents($path);
             $new = substr($log, strpos($log, "\n")+1);
             file_put_contents($path, $new);
@@ -58,7 +58,7 @@ if (file_exists($user_path) && $user != "." && $user != "..") {
         $time = date("H:i:s");
 
         $log = file_get_contents($path);
-        $log .= $date . "," . $time . "," . $_SERVER['REMOTE_ADDR'] . ",\"" . $_SERVER['REMOTE_HOST'] . "\",\"" . $_SERVER['HTTP_USER_AGENT'] . "\"\n";
+        $log .= $date . "," . $time . "," . $_SERVER['REMOTE_ADDR'] . ",\"" . $user . "\",\"" . $_SERVER['HTTP_USER_AGENT'] . "\"\n";
         file_put_contents($path, $log);
 
         setcookie("mercury_usr", $user);
@@ -67,7 +67,7 @@ if (file_exists($user_path) && $user != "." && $user != "..") {
     } else {
         $path = "../admin/Logs/fail_login.csv";
 
-        if (count(file($path)) == 100) {
+        if (count(file($path)) == 1250) {
             $log = file_get_contents($path);
             $new = substr($log, strpos($log, "\n")+1);
             file_put_contents($path, $new);
@@ -77,7 +77,7 @@ if (file_exists($user_path) && $user != "." && $user != "..") {
         $time = date("H:i:s");
 
         $log = file_get_contents($path);
-        $log .= $date . "," . $time . "," . $_SERVER['REMOTE_ADDR'] . ",\"" . $_SERVER['REMOTE_HOST'] . "\",\"" . $_SERVER['HTTP_USER_AGENT'] . "\"\n";
+        $log .= $date . "," . $time . "," . $_SERVER['REMOTE_ADDR'] . ",\"" . $user . "\",\"" . $_SERVER['HTTP_USER_AGENT'] . "\"\n";
         file_put_contents($path, $log);
 
         header("Location: /authentication.html");
@@ -95,7 +95,7 @@ if (file_exists($user_path) && $user != "." && $user != "..") {
     $time = date("H:i:s");
 
     $log = file_get_contents($path);
-    $log .= $date . "," . $time . "," . $_SERVER['REMOTE_ADDR'] . ",\"" . $_SERVER['REMOTE_HOST'] . "\",\"" . $_SERVER['HTTP_USER_AGENT'] . "\"\n";
+    $log .= $date . "," . $time . "," . $_SERVER['REMOTE_ADDR'] . ",\"\",\"" . $_SERVER['HTTP_USER_AGENT'] . "\"\n";
     file_put_contents($path, $log);
 
     header("Location: /authentication.html");

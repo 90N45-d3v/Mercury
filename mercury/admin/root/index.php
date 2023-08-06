@@ -306,10 +306,10 @@ function changeAdminPwd($new_pwd) {
 				<h4 style="color: #FFBF80;">Logins</h4>
 				<div class="container" style="max-width: 100%">
 					<form method="post" action="success_login_download.php">
-						<button class="rounded text-center respButton" type="submit" id="submit" name="success" style="background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80;">Download Successfull Logins (150 Max.)</button>
+						<button class="rounded text-center respButton" type="submit" id="submit" name="success" style="background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80;">Download Successfull Logins (1250 Max.)</button>
 					</form>
 					<form method="post" action="fail_login_download.php">
-						<button class="rounded text-center respButton" type="submit" id="submit" name="failed" style="background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80;">Download Failed Login Attempts (100 Max.)</button>
+						<button class="rounded text-center respButton" type="submit" id="submit" name="failed" style="background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80;">Download Failed Login Attempts (1250 Max.)</button>
 					</form>
 				</div>
 				<br>
