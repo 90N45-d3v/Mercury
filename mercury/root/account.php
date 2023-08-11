@@ -52,6 +52,7 @@ function changePwd($new_pwd) {
 }
 
 function logout() {
+	setcookie("mercury_usr", "", time() - 3600);
 	setcookie("mercury_auth", "", time() - 3600);
 	message("Logged out successfully.");
 }
