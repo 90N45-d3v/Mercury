@@ -1,4 +1,8 @@
 <?php
+session_start();
+if (isset($_SESSION['chat'])) {
+    $chat = $_SESSION['chat'];
+    }
 if (isset($_COOKIE["mercury_usr"]) && isset($_COOKIE["mercury_auth"])) {
 	$user = $_COOKIE["mercury_usr"];
 	$user_path = "../user/" . $user;
@@ -25,9 +29,9 @@ if (isset($_COOKIE["mercury_usr"]) && isset($_COOKIE["mercury_auth"])) {
 	header("Location: /authentication.html");
 }
 
-$file = fopen("../raw_msgs.txt", "r");
-if(filesize("../raw_msgs.txt") > 0) {
-	$content = fread($file,filesize("../raw_msgs.txt"));
+$file = fopen("../chats/$chat", "r");
+if(filesize("../chats/$chat") > 0) {
+	$content = fread($file,filesize("../chats/$chat"));
 	echo nl2br($content);
 	fclose($file);
 }
