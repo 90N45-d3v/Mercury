@@ -21,7 +21,7 @@ if (str_contains($ip_list, $_SERVER['REMOTE_ADDR'])) {
         </body>
         ');
 }
-
+$_SESSION["chat"] = "main.txt";
 $user = $_POST['usr'];
 $passwd = $_POST['pwd'];
 $user_path = "../user/" . $user;

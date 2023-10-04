@@ -1,5 +1,9 @@
 <?php
+session_start();
 if (isset($_COOKIE["mercury_usr"]) && isset($_COOKIE["mercury_auth"])) {
+    if (isset($_SESSION['chat'])) {
+        $chat = $_SESSION['chat'];
+    }
     $user = $_COOKIE["mercury_usr"];
     $user_path = "../user/" . $user;
     if (file_exists($user_path) && $user != "." && $user != "..") {
@@ -34,7 +38,7 @@ if($msg != "") {
 
     $nick_name = $_COOKIE["mercury_usr"];
     $message = "<sub>" . date("H:i") . " </sub>" . "<b>" . $nick_name . "</b> <i>" . $msg . "</i>\n";
-    $file = fopen("../raw_msgs.txt", "a");
+    $file = fopen("../chats/$chat", "a");
     fwrite($file, $message);
     fclose($file);
 }

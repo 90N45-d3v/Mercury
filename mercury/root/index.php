@@ -1,7 +1,11 @@
 <?php
+session_start();
 if (isset($_COOKIE["mercury_usr"]) && isset($_COOKIE["mercury_auth"])) {
 	$user = $_COOKIE["mercury_usr"];
 	$user_path = "../user/" . $user;
+	if (isset($_SESSION['chat'])) {
+		$chat = $_SESSION['chat'];
+		}
 	if (file_exists($user_path) && $user != "." && $user != "..") {
 		$token_path = "../user/" . $user . "/token.txt";
 	    $file = fopen($token_path, "r");
@@ -93,6 +97,57 @@ if (isset($_COOKIE["mercury_usr"]) && isset($_COOKIE["mercury_auth"])) {
 		.respButton:hover {
 			color: #FFBF80;
 		}
+
+		/* The side navigation menu */
+		.sidenav {
+			height: 100%; /* 100% Full-height */
+			width: 0; /* 0 width - change this with JavaScript */
+			position: fixed; /* Stay in place */
+			z-index: 1; /* Stay on top */
+			top: 0; /* Stay at the top */
+			left: 0;
+			background-color: #111; /* Black*/
+			overflow-x: hidden; /* Disable horizontal scroll */
+			padding-top: 60px; /* Place content 60px from the top */
+			transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+			}
+
+			/* The navigation menu links */
+		.sidenav a {
+			padding: 8px 8px 8px 32px;
+			text-decoration: none;
+			font-size: 25px;
+			color: #818181;
+			display: block;
+			transition: 0.3s;
+			}
+
+			/* When you mouse over the navigation links, change their color */
+		.sidenav a:hover {
+			color: #f1f1f1;
+			}
+
+			/* Position and style the close button (top right corner) */
+		.sidenav .closebtn {
+			position: absolute;
+			top: 0;
+			right: 25px;
+			font-size: 36px;
+			margin-left: 50px;
+			}
+
+			/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+		#main {
+			transition: margin-left .5s;
+			padding: 20px;
+			}
+
+			/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+		@media screen and (max-height: 450px) {
+			.sidenav {padding-top: 15px;}
+			.sidenav a {font-size: 18px;}
+			}
+
 	</style>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
@@ -168,6 +223,17 @@ if (isset($_COOKIE["mercury_usr"]) && isset($_COOKIE["mercury_auth"])) {
 			const alert = bootstrap.Alert.getOrCreateInstance("#systemMsg");
 			alert.close()
 		}
+		
+		function openNav() {
+			document.getElementById("mySidenav").style.width = "250px";
+			document.getElementById("main").style.marginLeft = "250px";
+			}
+
+			/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+		function closeNav() {
+			document.getElementById("mySidenav").style.width = "0";
+			document.getElementById("main").style.marginLeft = "0";
+			}
 
 		setInterval(update, 2000);
 		notifyPermission();
@@ -175,32 +241,54 @@ if (isset($_COOKIE["mercury_usr"]) && isset($_COOKIE["mercury_auth"])) {
 </head>
 
 <body style="background-color: #000000;">
-	<br>
-	<div class="text-center">
-		<img src="logo.png" rel="preload" onclick="copyright_date()" class="rounded" alt="Mercury" height="10%" style="animation-name: fade-in; animation-duration: 3s; position: relative;">
-	</div>
-	<br>
-	<div class="container">
-		<div style="height: 65%; width: 100%; background-color: #1a1a1a; animation-name: slide-right; animation-duration: 1.5s; position: relative;">
-			<div class="opacity-out" style="height:100%; width: 100%;">
-				<code id="chat" style="color: #FFBF80; margin: 10px; bottom: 0; position: absolute; animation-name: fade-in-broken; animation-duration: 3s;"></code>
-			</div>
+	<div id="main">
+	<span onclick="openNav()"><img src="menu_chats.png" height="5%"></span>
+		<br>
+		<div class="text-center">
+			<img src="logo.png" rel="preload" onclick="copyright_date()" class="rounded" alt="Mercury" height="10%" style="animation-name: fade-in; animation-duration: 3s; position: relative;">
 		</div>
-		<iframe name="dummyframe" id="dummyframe" style="display: none;" onsubmit="clearText()"></iframe>
-		<br><br>
-		<form method="post" id="sendMessage" action="send_message.php" target="dummyframe" style="animation-name: slide-left; animation-duration: 1.5s; position: relative;">
-			<code class="d-flex justify-content-between h-25">
-				<input class="rounded" type="text" name="message" id="message" placeholder=" Type something..." style="color: #FFBF80; background-color: #1a1a1a; border: none; outline: none; height: 20%; width: 80%; font-size: 12px;">
-				<button class="rounded" type="button" style="color: #FFBF80; background-color: #1a1a1a; border: none; outline: none; height: 20%; width: 15%;" onclick="buttonTriggerSend()"><img src="send_icon.png" height="40%"/></button>
-			</code>
-		</form>
+		<br>
+		<div class="container">
+			<div style="height: 65%; width: 100%; background-color: #1a1a1a; animation-name: slide-right; animation-duration: 1.5s; position: relative;">
+				<div class="opacity-out" style="height:100%; width: 100%;">
+					<code id="chat" style="color: #FFBF80; margin: 10px; bottom: 0; position: absolute; animation-name: fade-in-broken; animation-duration: 3s;"></code>
+				</div>
+			</div>
+			<iframe name="dummyframe" id="dummyframe" style="display: none;" onsubmit="clearText()"></iframe>
+			<br><br>
+			<form method="post" id="sendMessage" action="send_message.php" target="dummyframe" style="animation-name: slide-left; animation-duration: 1.5s; position: relative;">
+				<code class="d-flex justify-content-between h-25">
+					<input class="rounded" type="text" name="message" id="message" placeholder=" Type something..." style="color: #FFBF80; background-color: #1a1a1a; border: none; outline: none; height: 20%; width: 80%; font-size: 12px;">
+					<button class="rounded" type="button" style="color: #FFBF80; background-color: #1a1a1a; border: none; outline: none; height: 20%; width: 15%;" onclick="buttonTriggerSend()"><img src="send_icon.png" height="40%"/></button>
+				</code>
+			</form>
+		</div>
+		<div class="container text-center">
+			<button class="rounded text-center" style="background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80;"><a class="respButton" style="text-decoration: none;" href="account.php">Settings</a></button>
+		</div>
+		<br>
+		<div class="container text-center text-muted">
+			<footer id="copyright" style="cursor: pointer;"></footer>
+		</div>
+		<div id="mySidenav" class="sidenav">
+  			<?php 
+				$chatDirectory = '../chats';
+				if (is_dir($chatDirectory) && $handle = opendir($chatDirectory)) {
+					while (false !== ($entry = readdir($handle))) {
+						if ($entry != "." && $entry != "..") {
+							$entry_array =explode(".", $entry);
+							$entry2 = $entry_array[0];
+							echo '<li><a href="?name=' . urlencode($entry) . '">' . htmlspecialchars($entry) . '</a></li>' ;
+						}
+					}
+					closedir($handle);
+				}
+				$_SESSION["chat"] = $_GET["name"];
+			?>
+		</div>
 	</div>
-	<div class="container text-center">
-		<button class="rounded text-center" style="background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80;"><a class="respButton" style="text-decoration: none;" href="account.php">Settings</a></button>
-	</div>
-	<br>
-	<div class="container text-center text-muted">
-		<footer id="copyright" style="cursor: pointer;"></footer>
-	</div>
+	
+
 </body>
 </html>
+
