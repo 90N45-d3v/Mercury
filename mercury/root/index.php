@@ -171,7 +171,7 @@ if (isset($_COOKIE["mercury_usr"]) && isset($_COOKIE["mercury_auth"])) {
 	</div>
 	<br>
 	<div class="container">
-		<div style="height: 65%; width: 100%; background-color: #1a1a1a;">
+		<div style="height: 65%; width: 100%; background-color: #1a1a1a; position: relative;">
 			<div class="opacity-out" style="height:100%; width: 100%;">
 				<code id="chat" style="color: #FFBF80; margin: 10px; bottom: 0; position: absolute; animation-name: fade-in-broken; animation-duration: 3s;"></code>
 			</div>
