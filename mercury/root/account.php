@@ -188,10 +188,10 @@ function massLogout() {
 				<h4 style="color: #FFBF80;">Login Credentials</h4>
 				<div class="container" style="max-width: 100%">
 					<form method="post" id="changePwd">
-						<input class="rounded text-center" type="password" id="pwd0" name="pwd0" placeholder="Password" class="text-center" style="color: #FFBF80; background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80; animation-name: slide-in; animation-duration: 1.5s; position: relative; margin-right: 5px; margin-bottom: 5px;">
+						<input class="rounded text-center" type="password" id="pwd0" name="pwd0" placeholder="Password" class="text-center" style="color: #FFBF80; background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80; margin-right: 5px; margin-bottom: 5px;">
 						<button class="rounded text-center respButton" type="button" id="button" style="background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80; margin-bottom: 5px;" onclick="changePwd()">OK</button>
 						<br id="UserPwdInputBreak">
-						<input class="rounded text-center" type="password" id="pwd1" name="pwd1" placeholder="Repeat Password" class="text-center" style="color: #FFBF80; background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80; animation-name: slide-in; animation-duration: 1.5s; position: relative; margin-right: 5px; margin-bottom: 5px;">
+						<input class="rounded text-center" type="password" id="pwd1" name="pwd1" placeholder="Repeat Password" class="text-center" style="color: #FFBF80; background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80; margin-right: 5px; margin-bottom: 5px;">
 					</form>
 				</div>
 				<br>

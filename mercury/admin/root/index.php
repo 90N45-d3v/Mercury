@@ -275,7 +275,7 @@ function changeAdminPwd($new_pwd) {
 <body style="background-color: #000000;">
 	<br>
 	<div class="text-center">
-		<img src="logo.png" rel="preload" onclick="copyright_date()" class="rounded" alt="Mercury" height="10%" style="">
+		<img src="logo.png" rel="preload" onclick="copyright_date()" class="rounded" alt="Mercury" height="10%">
 	</div>
 	<br>
 	<div class="container">
@@ -290,7 +290,7 @@ function changeAdminPwd($new_pwd) {
 				<h4 style="color: #FFBF80;">IP Restriction</h4>
 				<div class="container" style="max-width: 100%">
 					<form method="post" style="margin-bottom: 35px;">
-						<input class="rounded text-center" type="text" id="ip" name="ip" placeholder="IP Address" class="text-center" style="color: #FFBF80; background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80; animation-name: slide-in; animation-duration: 1.5s; position: relative;" onkeyup="" required>
+						<input class="rounded text-center" type="text" id="ip" name="ip" placeholder="IP Address" class="text-center" style="color: #FFBF80; background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80;" onkeyup="" required>
 						<button class="rounded text-center respButton" type="submit" id="submit" style="background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80; margin-bottom: 15px;">OK</button>
 						<br>
 						<input type="radio" name="ip_restr" value="add" checked>
@@ -318,10 +318,10 @@ function changeAdminPwd($new_pwd) {
 				<h4 style="color: #FFBF80;">User Management</h4>
 				<div class="container" style="max-width: 100%">
 					<form method="post">
-						<input class="rounded text-center" type="text" id="username" name="username" placeholder="Username" class="text-center" style="color: #FFBF80; background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80; animation-name: slide-in; animation-duration: 1.5s; position: relative; margin-right: 5px;" onkeyup="" required>
+						<input class="rounded text-center" type="text" id="username" name="username" placeholder="Username" class="text-center" style="color: #FFBF80; background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80; margin-right: 5px;" onkeyup="" required>
 						<button class="rounded text-center respButton" type="submit" id="submit" style="background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80; margin-bottom: 5px;">OK</button>
 						<br id="UserPwdInputBreak">
-						<input class="rounded text-center" type="password" id="UserPwdInput" name="UserPwdInput" placeholder="Password" class="text-center" style="color: #FFBF80; background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80; animation-name: slide-in; animation-duration: 1.5s; position: relative;" onkeyup="" required>
+						<input class="rounded text-center" type="password" id="UserPwdInput" name="UserPwdInput" placeholder="Password" class="text-center" style="color: #FFBF80; background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80;" onkeyup="" required>
 						<br>
 						<input type="radio" id="user_mgmt" name="user_mgmt" value="add" onclick="togglePwdInput(true)" style="margin-top: 15px;" checked>
 						<label for="age1" class="text-secondary">Add this account</label><br>
@@ -347,10 +347,10 @@ function changeAdminPwd($new_pwd) {
 				<h4 style="color: #FFBF80;">Admin's Login</h4>
 				<div class="container" style="max-width: 100%">
 					<form method="post" id="changeAdminPwd">
-						<input class="rounded text-center" type="password" id="pwd0" name="pwd0" placeholder="Password" class="text-center" style="color: #FFBF80; background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80; animation-name: slide-in; animation-duration: 1.5s; position: relative; margin-right: 5px; margin-bottom: 5px;">
+						<input class="rounded text-center" type="password" id="pwd0" name="pwd0" placeholder="Password" class="text-center" style="color: #FFBF80; background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80; margin-right: 5px; margin-bottom: 5px;">
 						<button class="rounded text-center respButton" type="button" id="button" style="background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80; margin-bottom: 5px;" onclick="changeAdminPwd()">OK</button>
 						<br id="UserPwdInputBreak">
-						<input class="rounded text-center" type="password" id="pwd1" name="pwd1" placeholder="Repeat Password" class="text-center" style="color: #FFBF80; background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80; animation-name: slide-in; animation-duration: 1.5s; position: relative; margin-right: 5px; margin-bottom: 5px;">
+						<input class="rounded text-center" type="password" id="pwd1" name="pwd1" placeholder="Repeat Password" class="text-center" style="color: #FFBF80; background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80; margin-right: 5px; margin-bottom: 5px;">
 					</form>
 				</div>
 				<br>
