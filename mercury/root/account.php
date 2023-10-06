@@ -1,75 +1,5 @@
 <?php
-if (isset($_COOKIE["mercury_usr"]) && isset($_COOKIE["mercury_auth"])) {
-	$user = $_COOKIE["mercury_usr"];
-	$user_path = "../user/" . $user;
-	if (file_exists($user_path) && $user != "." && $user != "..") {
-		$token_path = "../user/" . $user . "/token.txt";
-	    $file = fopen($token_path, "r");
-	    $date = date("Ymd");
-	    $token_r = fread($file,filesize($token_path));
-
-		if (str_contains($token_r, $date)) {
-			fclose($file);
-		} else {
-			header("Location: /authentication.html");
-			fclose($file);
-		}
-
-	    if ($_COOKIE["mercury_auth"] != $token_r) {
-	    	header("Location: /authentication.html");
-	    }
-	} else {
-		header("Location: /authentication.html");
-	}
-} else {
-	header("Location: /authentication.html");
-}
-
-if (array_key_exists('pwd0', $_POST)) {
-	if (array_key_exists('pwd1', $_POST)) {
-		if ($_POST['pwd0'] == $_POST['pwd1']) {
-			changePwd($_POST['pwd0']);
-		} else {
-			message("<b>FAIL: </b>To change the admin password, both entries must be equal.");
-		}
-	}
-} else if (array_key_exists('logout', $_POST)) {
-	logout();
-} else if (array_key_exists('massLogout', $_POST)) {
-	massLogout();
-}
-
-function message($text) {
-	echo "<script>let message_con = \"" . $text . "\";</script>";
-}
-
-function changePwd($new_pwd) {
-	$path = "../user/" . $_COOKIE["mercury_usr"] . "/pwd.txt";
-    $file = fopen($path, "w+");
-    fwrite($file, $new_pwd);
-    fclose($file);
-	message("Password changed successfully.");
-}
-
-function logout() {
-	setcookie("mercury_usr", "", time() - 3600);
-	setcookie("mercury_auth", "", time() - 3600);
-	message("Logged out successfully.");
-}
-
-function massLogout() {
-	$token_path = "../user/" . $_COOKIE["mercury_usr"] . "/token.txt";
-    $n = 20;
-    $date = date("Ymd");
-	$token = bin2hex(random_bytes($n)) . $date;
-
-	$file = fopen($token_path, "w+");
-	fwrite($file, $token);
-	fclose($file);
-
-	message("Logged out all devices successfully.");
-}
-?>
+$content = <<< HTML
 <html>
 <head>
 	<link rel="SHORTCUT ICON" type="image/x-icon" href="m_icon.png"/>
@@ -215,3 +145,77 @@ function massLogout() {
 	</div>
 </body>
 </html>
+HTML;
+
+if (isset($_COOKIE["mercury_usr"]) && isset($_COOKIE["mercury_auth"])) {
+	$user = $_COOKIE["mercury_usr"];
+	$user_path = "../user/" . $user;
+	if (file_exists($user_path) && $user != "." && $user != "..") {
+		$token_path = "../user/" . $user . "/token.txt";
+	    $file = fopen($token_path, "r");
+	    $date = date("Ymd");
+	    $token_r = fread($file,filesize($token_path));
+
+		if (str_contains($token_r, $date)) {
+			fclose($file);
+		} else {
+			header("Location: /authentication.html");
+			fclose($file);
+		}
+
+	    if ($_COOKIE["mercury_auth"] != $token_r) {
+	    	header("Location: /authentication.html");
+	    } else {
+	    	echo $content;
+			if (array_key_exists('pwd0', $_POST)) {
+				if (array_key_exists('pwd1', $_POST)) {
+					if ($_POST['pwd0'] == $_POST['pwd1']) {
+						changePwd($_POST['pwd0']);
+					} else {
+						message("<b>FAIL: </b>To change the admin password, both entries must be equal.");
+					}
+				}
+			} else if (array_key_exists('logout', $_POST)) {
+				logout();
+			} else if (array_key_exists('massLogout', $_POST)) {
+				massLogout();
+			}
+
+			function message($text) {
+				echo "<script>let message_con = \"" . $text . "\";</script>";
+			}
+
+			function changePwd($new_pwd) {
+				$path = "../user/" . $_COOKIE["mercury_usr"] . "/pwd.txt";
+			    $file = fopen($path, "w+");
+			    fwrite($file, $new_pwd);
+			    fclose($file);
+				message("Password changed successfully.");
+			}
+
+			function logout() {
+				setcookie("mercury_usr", "", time() - 3600);
+				setcookie("mercury_auth", "", time() - 3600);
+				message("Logged out successfully.");
+			}
+
+			function massLogout() {
+				$token_path = "../user/" . $_COOKIE["mercury_usr"] . "/token.txt";
+			    $n = 20;
+			    $date = date("Ymd");
+				$token = bin2hex(random_bytes($n)) . $date;
+
+				$file = fopen($token_path, "w+");
+				fwrite($file, $token);
+				fclose($file);
+
+				message("Logged out all devices successfully.");
+			}
+	    }
+	} else {
+		header("Location: /authentication.html");
+	}
+} else {
+	header("Location: /authentication.html");
+}
+?>

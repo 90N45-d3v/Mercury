@@ -17,25 +17,25 @@ if (isset($_COOKIE["mercury_usr"]) && isset($_COOKIE["mercury_auth"])) {
 
         if ($_COOKIE["mercury_auth"] != $token_r) {
             header("Location: /authentication.html");
+        } else {
+            $msg = $_POST["message"];
+
+            if($msg != "") {
+                $msg = str_replace("&", "&amp;", $msg);
+                $msg = str_replace("<", "&lt;", $msg);
+                $msg = str_replace(">", "&gt;", $msg);
+
+                $nick_name = $_COOKIE["mercury_usr"];
+                $message = "<sub>" . date("H:i") . " </sub>" . "<b>" . $nick_name . "</b> <i>" . $msg . "</i>\n";
+                $file = fopen("../raw_msgs.txt", "a");
+                fwrite($file, $message);
+                fclose($file);
+            }
         }
     } else {
         header("Location: /authentication.html");
     }
 } else {
     header("Location: /authentication.html");
-}
-
-$msg = $_POST["message"];
-
-if($msg != "") {
-    $msg = str_replace("&", "&amp;", $msg);
-    $msg = str_replace("<", "&lt;", $msg);
-    $msg = str_replace(">", "&gt;", $msg);
-
-    $nick_name = $_COOKIE["mercury_usr"];
-    $message = "<sub>" . date("H:i") . " </sub>" . "<b>" . $nick_name . "</b> <i>" . $msg . "</i>\n";
-    $file = fopen("../raw_msgs.txt", "a");
-    fwrite($file, $message);
-    fclose($file);
 }
 ?>

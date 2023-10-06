@@ -1,30 +1,5 @@
 <?php
-if (isset($_COOKIE["mercury_usr"]) && isset($_COOKIE["mercury_auth"])) {
-	$user = $_COOKIE["mercury_usr"];
-	$user_path = "../user/" . $user;
-	if (file_exists($user_path) && $user != "." && $user != "..") {
-		$token_path = "../user/" . $user . "/token.txt";
-	    $file = fopen($token_path, "r");
-	    $date = date("Ymd");
-	    $token_r = fread($file,filesize($token_path));
-
-		if (str_contains($token_r, $date)) {
-			fclose($file);
-		} else {
-			header("Location: /authentication.html");
-			fclose($file);
-		}
-
-	    if ($_COOKIE["mercury_auth"] != $token_r) {
-	    	header("Location: /authentication.html");
-	    }
-	} else {
-		header("Location: /authentication.html");
-	}
-} else {
-	header("Location: /authentication.html");
-}
-?>
+$content = <<< HTML
 <html>
 <head>
 	<link rel="SHORTCUT ICON" type="image/x-icon" href="m_icon.png"/>
@@ -105,12 +80,16 @@ if (isset($_COOKIE["mercury_usr"]) && isset($_COOKIE["mercury_auth"])) {
 			if (navigator.onLine === true) {
 				$.get("chat.php", function(data, status) {
 					last_chat_state = document.getElementById("chat").innerHTML
-					document.getElementById("chat").innerHTML = data;
-					if (last_chat_state !== "" && last_chat_state !== document.getElementById("chat").innerHTML) {
-						console.log("New message");
-						if (document.visibilityState === "hidden") {
-							sendNotification("Mercury", "Someone sent you a message!");
+					if (data != "403") {
+						document.getElementById("chat").innerHTML = data;
+						if (last_chat_state !== "" && last_chat_state !== document.getElementById("chat").innerHTML) {
+							console.log("New message");
+							if (document.visibilityState === "hidden") {
+								sendNotification("Mercury", "Someone sent you a message!");
+							}
 						}
+					} else {
+						window.location = "/authentication.html"
 					}
 				});
 				if (offline) {
@@ -194,3 +173,33 @@ if (isset($_COOKIE["mercury_usr"]) && isset($_COOKIE["mercury_auth"])) {
 	</div>
 </body>
 </html>
+HTML;
+
+if (isset($_COOKIE["mercury_usr"]) && isset($_COOKIE["mercury_auth"])) {
+	$user = $_COOKIE["mercury_usr"];
+	$user_path = "../user/" . $user;
+	if (file_exists($user_path) && $user != "." && $user != "..") {
+		$token_path = "../user/" . $user . "/token.txt";
+	    $file = fopen($token_path, "r");
+	    $date = date("Ymd");
+	    $token_r = fread($file,filesize($token_path));
+
+		if (str_contains($token_r, $date)) {
+			fclose($file);
+		} else {
+			header("Location: /authentication.html");
+			fclose($file);
+		}
+
+	    if ($_COOKIE["mercury_auth"] != $token_r) {
+	    	header("Location: /authentication.html");
+	    } else {
+	    	echo $content;
+	    }
+	} else {
+		header("Location: /authentication.html");
+	}
+} else {
+	header("Location: /authentication.html");
+}
+?>

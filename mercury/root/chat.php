@@ -11,24 +11,24 @@ if (isset($_COOKIE["mercury_usr"]) && isset($_COOKIE["mercury_auth"])) {
 		if (str_contains($token_r, $date)) {
 			fclose($file);
 		} else {
-			header("Location: /authentication.html");
+			echo "403";
 			fclose($file);
 		}
 
 	    if ($_COOKIE["mercury_auth"] != $token_r) {
-	    	header("Location: /authentication.html");
+	    	echo "403";
+	    } else {
+			$file = fopen("../raw_msgs.txt", "r");
+			if(filesize("../raw_msgs.txt") > 0) {
+				$content = fread($file,filesize("../raw_msgs.txt"));
+				echo nl2br($content);
+				fclose($file);
+			}
 	    }
 	} else {
-		header("Location: /authentication.html");
+		echo "403";
 	}
 } else {
-	header("Location: /authentication.html");
-}
-
-$file = fopen("../raw_msgs.txt", "r");
-if(filesize("../raw_msgs.txt") > 0) {
-	$content = fread($file,filesize("../raw_msgs.txt"));
-	echo nl2br($content);
-	fclose($file);
+	echo "403";
 }
 ?>
