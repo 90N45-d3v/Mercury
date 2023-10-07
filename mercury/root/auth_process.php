@@ -45,7 +45,7 @@ if (file_exists($user_path) && $user != "." && $user != "..") {
     $file = fopen($user_path . "/pwd.txt", "r");
     $passwd_r = fread($file,filesize($user_path . "/pwd.txt"));
 
-    if ($passwd == $passwd_r) {
+    if (password_verify($passwd, $passwd_r)) {
         $path = "../admin/Logs/success_login.csv";
 
         if (count(file($path)) == 1250) {

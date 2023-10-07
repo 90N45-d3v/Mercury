@@ -80,7 +80,8 @@ if(isset($_COOKIE[$cookie_name])) {
 			if (file_exists($user_path) != true) {
 				mkdir($user_path);
 				$pwd_file = fopen($user_path . "/pwd.txt", "w");
-				fwrite($pwd_file, $pwd);
+				$pwd_hash = password_hash($pwd, PASSWORD_BCRYPT);
+				fwrite($pwd_file, $pwd_hash);
 				fclose($pwd_file);
 
 				$token_file = fopen($user_path . "/token.txt", "w");

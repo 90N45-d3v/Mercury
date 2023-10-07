@@ -18,7 +18,7 @@ if (str_contains($token, $date)) {
 $pwd_file = fopen("../pwd.txt", "r");
 $passwd_r = fread($pwd_file,filesize("../pwd.txt"));
 
-if ($passwd == $passwd_r) {
+if (password_verify($passwd, $passwd_r)) {
     setcookie("mercury_auth_admin", $token);
     header("Location: /index.php");
 } else {
