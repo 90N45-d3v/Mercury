@@ -197,7 +197,6 @@ if (isset($_COOKIE["mercury_usr"]) && isset($_COOKIE["mercury_auth"])) {
 	    if ($_COOKIE["mercury_auth"] != $token_r) {
 	    	header("Location: /authentication.html");
 	    } else {
-	    	echo $content;
 			if (array_key_exists('pwd0', $_POST)) {
 				if (array_key_exists('pwd1', $_POST)) {
 					if ($_POST['pwd0'] == $_POST['pwd1']) {
@@ -211,6 +210,7 @@ if (isset($_COOKIE["mercury_usr"]) && isset($_COOKIE["mercury_auth"])) {
 			} else if (array_key_exists('massLogout', $_POST)) {
 				massLogout();
 			}
+			echo $content;
 	    }
 	} else {
 		header("Location: /authentication.html");
