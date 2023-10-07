@@ -15,13 +15,13 @@ $cookie_name = "mercury_auth_admin";
 if(isset($_COOKIE[$cookie_name])) {
 	if($_COOKIE[$cookie_name] != $token) {
 		header("Location: /authentication.html");
+	} else {
+		header("Content-Type: application/csv");
+		header("Content-Disposition: attachment; filename=fail_login.csv");
+		header("Content-Length: ". filesize("../Logs/fail_login.csv"));
+		readfile("../Logs/fail_login.csv");
 	}
 } else {
 	header("Location: /authentication.html");
 }
-
-header("Content-Type: application/csv");
-header("Content-Disposition: attachment; filename=fail_login.csv");
-header("Content-Length: ". filesize("../Logs/fail_login.csv"));
-readfile("../Logs/fail_login.csv");
 ?>

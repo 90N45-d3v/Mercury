@@ -147,6 +147,37 @@ $content = <<< HTML
 </html>
 HTML;
 
+function message($text) {
+	echo "<script>let message_con = \"" . $text . "\";</script>";
+}
+
+function changePwd($new_pwd) {
+	$path = "../user/" . $_COOKIE["mercury_usr"] . "/pwd.txt";
+	$file = fopen($path, "w+");
+	fwrite($file, $new_pwd);
+	fclose($file);
+	message("Password changed successfully.");
+}
+
+function logout() {
+	setcookie("mercury_usr", "", time() - 3600);
+	setcookie("mercury_auth", "", time() - 3600);
+	message("Logged out successfully.");
+}
+
+function massLogout() {
+	$token_path = "../user/" . $_COOKIE["mercury_usr"] . "/token.txt";
+	$n = 20;
+	$date = date("Ymd");
+	$token = bin2hex(random_bytes($n)) . $date;
+
+	$file = fopen($token_path, "w+");
+	fwrite($file, $token);
+	fclose($file);
+
+	message("Logged out all devices successfully.");
+}
+
 if (isset($_COOKIE["mercury_usr"]) && isset($_COOKIE["mercury_auth"])) {
 	$user = $_COOKIE["mercury_usr"];
 	$user_path = "../user/" . $user;
@@ -179,37 +210,6 @@ if (isset($_COOKIE["mercury_usr"]) && isset($_COOKIE["mercury_auth"])) {
 				logout();
 			} else if (array_key_exists('massLogout', $_POST)) {
 				massLogout();
-			}
-
-			function message($text) {
-				echo "<script>let message_con = \"" . $text . "\";</script>";
-			}
-
-			function changePwd($new_pwd) {
-				$path = "../user/" . $_COOKIE["mercury_usr"] . "/pwd.txt";
-			    $file = fopen($path, "w+");
-			    fwrite($file, $new_pwd);
-			    fclose($file);
-				message("Password changed successfully.");
-			}
-
-			function logout() {
-				setcookie("mercury_usr", "", time() - 3600);
-				setcookie("mercury_auth", "", time() - 3600);
-				message("Logged out successfully.");
-			}
-
-			function massLogout() {
-				$token_path = "../user/" . $_COOKIE["mercury_usr"] . "/token.txt";
-			    $n = 20;
-			    $date = date("Ymd");
-				$token = bin2hex(random_bytes($n)) . $date;
-
-				$file = fopen($token_path, "w+");
-				fwrite($file, $token);
-				fclose($file);
-
-				message("Logged out all devices successfully.");
 			}
 	    }
 	} else {
