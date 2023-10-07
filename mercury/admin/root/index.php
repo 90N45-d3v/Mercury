@@ -117,7 +117,8 @@ if(isset($_COOKIE[$cookie_name])) {
 
 		function changeAdminPwd($new_pwd) {
 		    $file = fopen("../pwd.txt", "w+");
-		    fwrite($file, $new_pwd);
+		    $new_pwd_hash = password_hash($new_pwd, PASSWORD_BCRYPT);
+		    fwrite($file, $new_pwd_hash);
 		    fclose($file);
 			message("Admin's password changed successfully.");
 		}
