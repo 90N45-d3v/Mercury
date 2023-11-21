@@ -153,9 +153,10 @@ function message($text) {
 
 function changePwd($new_pwd) {
 	$path = "../user/" . $_COOKIE["mercury_usr"] . "/pwd.txt";
-	$file = fopen($path, "w+");
-	fwrite($file, $new_pwd);
-	fclose($file);
+	$pwd_file = fopen($path, "w+");
+	$pwd_hash = password_hash($new_pwd, PASSWORD_BCRYPT);
+	fwrite($pwd_file, $pwd_hash);
+	fclose($pwd_file);
 	message("Password changed successfully.");
 }
 
