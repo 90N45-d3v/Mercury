@@ -13,36 +13,58 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
   <style>
-    @keyframes fade-in {
-      0% {opacity: 0.0;}
-      100% {opacity: 1;}
-    }
-
-    @keyframes slide-in {
-      0% {opacity: 0.0; top: -100px;}
-      100% {opacity: 1; top: 0px;}
-    }
-
     ::placeholder {
-      color: grey;
+      color: #495057;
+    }
+
+    .respButton {
+      min-height: fit-content;
+      height: 2.5rem;
+      text-decoration: none;
+      color: #FFBF80;
+      background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(34,34,34,1) 100%);
+      border: none;
+      outline: solid;
+      outline-width: 0.08rem;
+      outline-color: #343a40;
+    }
+
+    .respButton:hover {
+      color: #FFBF80;
+      outline-color: #FFBF80;
+    }
+
+    .respTextInput {
+      height: 2.5rem;
+      color: #FFBF80;
+      background-color: #000000;
+      border: none;
+      outline: dashed;
+      outline-width: 0.08rem;
+      outline-color: #343a40;
+    }
+
+    .respTextInput:hover {
+      outline-color: #FFBF80;
+    }
+
+    .respTextInput:focus {
+      outline: solid;
+      outline-color: #FFBF80;
+    }
+
+    .m-widget {
+      background-color: #1a1a1a;
+      outline: solid;
+      outline-width: 0.15rem;
+      outline-color: #252628;
     }
   </style>
 
   <script type="text/javascript">
-    function copyright_date() {
-      let date =  new Date().getFullYear();
-      document.getElementById("copyright").innerHTML = "<p style=\"animation-name: fade-in; animation-duration: 3s;\"> &copy; " + date + " 90N45<br>All rights reserved. </p>";
-    }
-
-    function showButton() {
-      if (document.getElementById("pwd").value != "") {
-        document.getElementById("submit").style.visibility = "visible";
-      }
-    }
-
     window.onload = function secondtry() {
       if (document.referrer == window.location.href) {
-        document.getElementById("message").innerHTML = "<a><small><code style=\"color: #FFBF80; animation-name: fade-in; animation-duration: 6s; position: relative;\">The password you entered seems to be wrong...</code></small></a>";
+        document.getElementById("message").innerHTML = "<br><a style=\"color: #FFBF80;\"><small>The credentials you entered seem to be incorrect...</small></a>";
       }
     }
 
@@ -52,23 +74,29 @@
 
 <body style="background-color: #000000;">
   <br>
-  <div class="text-center">
-    <img src="logo.png" rel="preload" onclick="copyright_date()" class="rounded" alt="Mercury" height="120" style="animation-name: fade-in; animation-duration: 3s; position: relative;">
-  </div>
   <br>
-  <div class="form-group text-center">
-    <form method="post" action="auth_process.php">
-      <input class="rounded text-center" type="password" id="pwd" name="pwd" placeholder="Admin's Password" class="text-center" style="color: #FFBF80; background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80; animation-name: slide-in; animation-duration: 1.5s; position: relative;" onkeyup="showButton()" required>
-      <br>
-      <br>
-      <button class="rounded text-center buttonEnter" type="submit" id="submit" name="submit" style="color: #FFBF80; background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80; position: relative; animation-name: slide-in; animation-duration: 1.5s; position: relative; visibility: hidden;"><img src="m_icon.png" rel="preload" class="rounded" alt="Mercury" height="21"><b> Login</b></button>
-    </form>
+  <div style="margin-left: 0.8rem; margin-right: 0.8rem;">
+    <div class="container m-widget m-outline rounded text-center" style="max-width: 500px; padding: 0.8rem;">
+      <div class="text-center" style="margin-left: 1.6rem; margin-right: 1.6rem; margin-bottom: 1rem;">
+        <a href="https://github.com/90N45-d3v/Mercury">
+          <img src="logo.png" rel="preload" class="rounded" alt="Mercury" style="width: 100%;">
+        </a>
+      </div>
+      <form method="post" action="auth_process.php">
+        <input class="rounded text-center respTextInput" type="password" id="pwd" name="pwd" placeholder="Admin's Password" class="text-center" style="width: 250px; max-width: 100%; margin-bottom: 2rem;" required>
+        <br>
+        <button class="rounded text-center respButton" type="submit" id="submit" name="submit">
+          <div style="margin-left: 0.8rem; margin-right: 0.8rem;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-box-arrow-in-right" viewBox="0 1 16 16">
+              <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z"/>
+              <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+            </svg>
+            <a>&nbsp;Login</a>
+          </div>
+        </button>
+      </form>
+      <div class="text-center" id="message"></div>
+    </div>
   </div>
 </body>
-<br>
-<div class="text-center" id="message"></div>
-<br>
-<div class="container text-center text-muted">
-    <footer id="copyright" style="cursor: pointer;"></footer>
-</div>
 </html>

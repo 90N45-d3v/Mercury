@@ -22,6 +22,6 @@ if (password_verify($passwd, $passwd_r)) {
     setcookie("mercury_auth_admin", $token);
     header("Location: /index.php");
 } else {
-    echo "<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC\" crossorigin=\"anonymous\"><div class=\"text-center\"><p class=\"h1\">ACCESS FORBIDDEN</p><br><img src=\"https://www.cursor.cc/cursor3d/80683.png\"></div>";
+    header("Location: /authentication.html");
 }
 ?>

@@ -180,11 +180,18 @@ if(isset($_COOKIE[$cookie_name])) {
 				::-webkit-scrollbar-track {
 					background-color: #000000;
 					border-radius: 0px;
+					outline: solid;
+					outline-width: 0.08rem;
+					outline-color: #343a40;
 				}
 
 				::-webkit-scrollbar-thumb {
 					border-radius: 10px;
 					-webkit-box-shadow: inset 0 0 6px rgba(255, 191, 128, 7);
+				}
+
+				::placeholder {
+					color: #495057;
 				}
 
 				@keyframes fade-in {
@@ -202,14 +209,6 @@ if(isset($_COOKIE[$cookie_name])) {
 					mask-image: linear-gradient(to top, black 80%, transparent 100%);
 				}
 
-				.respButton {
-					color: #6c757d;
-				}
-
-				.respButton:hover {
-					color: #FFBF80;
-				}
-
 				input[type='radio'] {
 				    accent-color: #FFBF80;
 				}
@@ -218,13 +217,86 @@ if(isset($_COOKIE[$cookie_name])) {
 					color: #FFBF80;
 					background-color: #000000;
 				}
+
+				.respButton {
+					height: 2.5rem;
+					text-decoration: none;
+					color: #495057;
+					background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(34,34,34,1) 100%);
+					border: none;
+					outline: solid;
+					outline-width: 0.08rem;
+					outline-color: #343a40;
+				}
+
+				.respButton:hover {
+					color: #FFBF80;
+					outline-color: #FFBF80;
+				}
+
+				.respTextInput {
+					height: 2.5rem;
+					color: #FFBF80;
+					background-color: #000000;
+					border: none;
+					outline: dashed;
+					outline-width: 0.08rem;
+					outline-color: #343a40;
+				}
+
+				.respTextInput:hover {
+					outline-color: #FFBF80;
+				}
+
+				.respTextInput:focus {
+					outline: solid;
+					outline-color: #FFBF80;
+				}
+
+				.respHeaderButton {
+					text-decoration: none;
+					color: #FFBF80;
+					background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(34,34,34,1) 100%);
+					border: none;
+					outline: solid;
+					outline-width: 0.08rem;
+					outline-color: #FFBF80;
+				}
+
+				.respHeaderButton:hover {
+					background: linear-gradient(0deg, rgba(255,169,84,1) 0%, rgba(255,191,128,1) 100%);
+					background-color: #FFBF80;
+					color: #1a1a1a;
+				}
+
+
+				.m-widget {
+					background-color: #1a1a1a;
+					outline: solid;
+					outline-width: 0.15rem;
+					outline-color: #252628;
+
+					width: 400px;
+					max-width: 100%;
+				}
+
+				.m-outline {
+					outline: solid;
+					outline-width: 0.08rem;
+					outline-color: #252628;
+				}
 			</style>
 
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 			<script type="text/javascript">
-				function copyright_date() {
-					let date =  new Date().getFullYear();
-					document.getElementById("copyright").innerHTML = "<p style=\"animation-name: fade-in; animation-duration: 3s;\"> &copy; " + date + " 90N45<br>All rights reserved. </p>";
+				function auth_redirect() {
+					window.location.replace("/authentication.html");
+				}
+
+				function logout() {
+					document.cookie = "mercury_auth_admin=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+					message("Logged out successfully.");
+					setTimeout(auth_redirect, 5000);
 				}
 
 				function togglePwdInput(bool) {
@@ -253,7 +325,7 @@ if(isset($_COOKIE[$cookie_name])) {
 				}
 
 				function message(text) {
-					let message = '<div class="alert alert-dark alert-dismissible fade show" role="alert" style="position: fixed; top: 1vw; margin-left: 1.5vw; margin-right: 1.5vw; animation-name: slide-in-left; animation-duration: 1.5s; color: #FFBF80; background-color: #1a1a1a;" id="systemMsg">' + text + '<button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button></div>'
+					let message = '<div class="alert alert-dark alert-dismissible fade show m-outline" role="alert" style="border: none; z-index: 9999; position: fixed; top: 1vw; margin-left: 1.5vw; margin-right: 1.5vw; animation-name: slide-in-left; animation-duration: 1.5s; color: #FFBF80; background-color: #1a1a1a;" id="systemMsg">' + text + '<button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button></div>'
 					$('body').append(message);
 				}
 
@@ -273,85 +345,142 @@ if(isset($_COOKIE[$cookie_name])) {
 		</head>
 
 		<body style="background-color: #000000;">
-			<br>
-			<div class="text-center">
-				<img src="logo.png" rel="preload" onclick="copyright_date()" class="rounded" alt="Mercury" height="10%">
+			<div>
+				<nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm" style="border-bottom: solid; border-color: #FFBF80; border-width: 1px; background: #1a1a1a;">
+					<div class="container-fluid">				
+						<a class="navbar-brand" href="https://github.com/90N45-d3v/Mercury">
+							<img src="logo.png" height="40px">
+						</a>
+						<div>
+							<ul class="nav ms-auto">
+								<li class="nav-item">
+									<div class="container text-center">
+										<a class="rounded btn text-center respHeaderButton" title="Log out" onclick="logout();">
+											<svg style="margin: 4;" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+												<path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+												<path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+											</svg>
+										</a>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</nav>
+				<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm" style="visibility: hidden;">
+					<div class="container-fluid">
+						<a class="navbar-brand" href="#">
+							<img src="logo.png" height="30px">
+						</a>
+						<div>
+							<ul class="nav ms-auto">
+								<li class="nav-item">
+								</li>
+							</ul>
+						</div>
+					</div>
+				</nav>
 			</div>
+			<br>
 			<br>
 			<div class="container">
 				<div style="display: flex; flex-flow: wrap; justify-content: space-between;">
 					<div style="max-width: 100%">
-						<h4 style="color: #FFBF80;">Server Status</h4>
-						<div class="container" style="max-width: 100%">
-							<p class="text-secondary">System Storage: <b>{$storage} GB</b></p>
-							<p class="text-secondary">Chat Size: <b>{$chat_size} MB</b></p>
+						<div class="rounded m-widget">
+							<div style="padding: 1rem;">
+								<h4 style="color: #FFBF80; margin-bottom: 1rem;">Server Status</h4>
+								<div class="container" style="max-width: 100%">
+									<p class="text-secondary">System Storage: <b>{$storage} GB</b></p>
+									<p class="text-secondary">Chat Size: <b>{$chat_size} MB</b></p>
+								</div>
+							</div>
 						</div>
 						<br>
-						<h4 style="color: #FFBF80;">IP Restriction</h4>
-						<div class="container" style="max-width: 100%">
-							<form method="post" style="margin-bottom: 35px;">
-								<input class="rounded text-center" type="text" id="ip" name="ip" placeholder="IP Address" class="text-center" style="color: #FFBF80; background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80;" onkeyup="" required>
-								<button class="rounded text-center respButton" type="submit" id="submit" style="background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80; margin-bottom: 15px;">OK</button>
-								<br>
-								<input type="radio" name="ip_restr" value="add" checked>
-								<label for="age1" class="text-secondary">Block</label><br>
-								<input type="radio" name="ip_restr" value="rm">
-								<label for="age1" class="text-secondary">Unblock</label>
-							</form>
-							<form method="post" action="blacklist_download.php">
-								<button class="rounded text-center respButton" type="submit" id="submit" name="ip_list" style="background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80;">Download Blocked IP List</button>
-							</form>
-						</div>
-						<br>
-						<h4 style="color: #FFBF80;">Logins</h4>
-						<div class="container" style="max-width: 100%">
-							<form method="post" action="success_login_download.php">
-								<button class="rounded text-center respButton" type="submit" id="submit" name="success" style="background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80;">Download Successfull Logins (1250 Max.)</button>
-							</form>
-							<form method="post" action="fail_login_download.php">
-								<button class="rounded text-center respButton" type="submit" id="submit" name="failed" style="background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80;">Download Failed Login Attempts (1250 Max.)</button>
-							</form>
+						<div class="rounded m-widget">
+							<div style="padding: 1rem;">
+								<h4 style="color: #FFBF80; margin-bottom: 1rem;">User Management</h4>
+								<div class="container" style="max-width: 100%">
+									<form method="post">
+										<input class="rounded respTextInput text-center" type="text" id="username" name="username" placeholder="Username" class="text-center" style="margin-right: 5px; margin-bottom: 10px;" required>
+										<button class="rounded text-center respButton" type="submit" id="submit"><a style="margin-left: 0.8rem; margin-right: 0.8rem;">OK</a></button>
+										<br id="UserPwdInputBreak">
+										<input class="rounded respTextInput text-center" type="password" id="UserPwdInput" name="UserPwdInput" placeholder="Password" class="text-center" style="margin-bottom: 10px;" required>
+										<br>
+										<input type="radio" id="user_mgmt" name="user_mgmt" value="add" onclick="togglePwdInput(true)" style="margin-top: 5px;" checked>
+										<label for="age1" class="text-secondary">Add this account</label><br>
+										<input type="radio" id="user_mgmt" name="user_mgmt" value="rm" onclick="togglePwdInput(false)">
+										<label for="age1" class="text-secondary">Remove this account</label>
+									</form>
+								</div>
+							</div>
 						</div>
 						<br>
 					</div>
 					<div style="max-width: 100%">
-						<h4 style="color: #FFBF80;">User Management</h4>
-						<div class="container" style="max-width: 100%">
-							<form method="post">
-								<input class="rounded text-center" type="text" id="username" name="username" placeholder="Username" class="text-center" style="color: #FFBF80; background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80; margin-right: 5px;" onkeyup="" required>
-								<button class="rounded text-center respButton" type="submit" id="submit" style="background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80; margin-bottom: 5px;">OK</button>
-								<br id="UserPwdInputBreak">
-								<input class="rounded text-center" type="password" id="UserPwdInput" name="UserPwdInput" placeholder="Password" class="text-center" style="color: #FFBF80; background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80;" onkeyup="" required>
-								<br>
-								<input type="radio" id="user_mgmt" name="user_mgmt" value="add" onclick="togglePwdInput(true)" style="margin-top: 15px;" checked>
-								<label for="age1" class="text-secondary">Add this account</label><br>
-								<input type="radio" id="user_mgmt" name="user_mgmt" value="rm" onclick="togglePwdInput(false)">
-								<label for="age1" class="text-secondary">Remove this account</label>
-							</form>
+						<div class="rounded m-widget">
+							<div style="padding: 1rem;">
+								<h4 style="color: #FFBF80; margin-bottom: 1rem;">IP Restriction</h4>
+								<div class="container" style="max-width: 100%">
+									<form method="post" style="margin-bottom: 35px;">
+										<input class="rounded respTextInput text-center" type="text" id="ip" name="ip" placeholder="IP Address" class="text-center" style="margin-right: 5px; margin-bottom: 10px;" required>
+										<button class="rounded text-center respButton" type="submit" id="submit"><a style="margin-left: 0.8rem; margin-right: 0.8rem;">OK</a></button>
+										<br>
+										<input type="radio" name="ip_restr" value="add" checked>
+										<label for="age1" class="text-secondary">Block</label><br>
+										<input type="radio" name="ip_restr" value="rm">
+										<label for="age1" class="text-secondary">Unblock</label>
+									</form>
+									<form method="post" action="blacklist_download.php">
+										<button class="rounded text-center respButton" type="submit" id="submit" name="ip_list"><a style="margin-left: 0.8rem; margin-right: 0.8rem;">Download Blocked IP List</a></button>
+									</form>
+								</div>
+							</div>
 						</div>
 						<br>
-						<h4 style="color: #FFBF80;">Conversation</h4>
-						<div class="container" style="max-width: 100%">
-							<form method="post">
-								<button class="rounded text-center respButton" type="submit" id="submit" name="backup" style="background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80;">Backup Chat</button>
-							</form>
-						</div>
-						<div class="container" style="max-width: 100%">
-							<form method="post">
-								<button class="rounded text-center respButton" type="submit" id="submit" name="clear" style="background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80;">Clear History</button>
-							</form>
+						<div class="rounded m-widget">
+							<div style="padding: 1rem;">
+								<h4 style="color: #FFBF80; margin-bottom: 1rem;">Logins</h4>
+								<div class="container" style="max-width: 100%">
+									<form method="post" action="success_login_download.php" style="margin-bottom: 10px;">
+										<button class="rounded text-center respButton" type="submit" id="submit" name="success"><a style="margin-left: 0.8rem; margin-right: 0.8rem;">Download Successfull Logins</a></button>
+									</form>
+									<form method="post" action="fail_login_download.php">
+										<button class="rounded text-center respButton" type="submit" id="submit" name="failed"><a style="margin-left: 0.8rem; margin-right: 0.8rem;">Download Failed Login Attempts</a></button>
+									</form>
+								</div>
+							</div>
 						</div>
 						<br>
 					</div>
 					<div style="max-width: 100%">
-						<h4 style="color: #FFBF80;">Admin's Login</h4>
-						<div class="container" style="max-width: 100%">
-							<form method="post" id="changeAdminPwd">
-								<input class="rounded text-center" type="password" id="pwd0" name="pwd0" placeholder="Password" class="text-center" style="color: #FFBF80; background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80; margin-right: 5px; margin-bottom: 5px;">
-								<button class="rounded text-center respButton" type="button" id="button" style="background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80; margin-bottom: 5px;" onclick="changeAdminPwd()">OK</button>
-								<br id="UserPwdInputBreak">
-								<input class="rounded text-center" type="password" id="pwd1" name="pwd1" placeholder="Repeat Password" class="text-center" style="color: #FFBF80; background-color: #000000; border-color: #1a1a1a; border-style: solid; outline-color: #FFBF80; margin-right: 5px; margin-bottom: 5px;">
-							</form>
+						<div class="rounded m-widget">
+							<div style="padding: 1rem;">
+								<h4 style="color: #FFBF80; margin-bottom: 1rem;">Conversation</h4>
+								<div class="container" style="max-width: 100%">
+									<form method="post">
+										<button class="rounded text-center respButton" type="submit" id="submit" name="backup"><a style="margin-left: 0.8rem; margin-right: 0.8rem;">Backup Chat</a></button>
+									</form>
+								</div>
+								<div class="container" style="max-width: 100%">
+									<form method="post">
+										<button class="rounded text-center respButton" type="submit" id="submit" name="clear"><a style="margin-left: 0.8rem; margin-right: 0.8rem;">Clear History</a></button>
+									</form>
+								</div>
+							</div>
+						</div>
+						<br>
+						<div class="rounded m-widget">
+							<div style="padding: 1rem;">
+								<h4 style="color: #FFBF80; margin-bottom: 1rem;">Admin's Login</h4>
+								<div class="container" style="max-width: 100%">
+									<form method="post" id="changeAdminPwd">
+										<input class="rounded respTextInput text-center" type="password" id="pwd0" name="pwd0" placeholder="Password" class="text-center" style="margin-right: 5px; margin-bottom: 10px;">
+										<button class="rounded text-center respButton" type="button" id="button" onclick="changeAdminPwd()"><a style="margin-left: 0.8rem; margin-right: 0.8rem;">OK</a></button>
+										<br id="UserPwdInputBreak">
+										<input class="rounded respTextInput text-center" type="password" id="pwd1" name="pwd1" placeholder="Repeat Password" class="text-center" style="margin-right: 5px; margin-bottom: 5px;">
+									</form>
+								</div>
+							</div>
 						</div>
 						<br>
 					</div>
